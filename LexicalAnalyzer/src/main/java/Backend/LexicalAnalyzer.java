@@ -4,14 +4,12 @@ import Backend.Automatons.ArithmeticOperator;
 import Backend.Automatons.Identifier;
 import Backend.Automatons.Logical;
 import Backend.Automatons.RationalCoparison;
-
 import java.util.ArrayList;
-import java.util.SimpleTimeZone;
 
 public class LexicalAnalyzer {
+
     private String[] words;
     private ArrayList<Token> tokens;
-
     private final Identifier identifier = new Identifier();
     private final ArithmeticOperator arithmeticOperator = new ArithmeticOperator();
     private final RationalCoparison rationalCoparison = new RationalCoparison();

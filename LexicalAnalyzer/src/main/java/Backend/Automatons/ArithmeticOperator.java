@@ -9,10 +9,6 @@ public class ArithmeticOperator extends Automaton {
     public boolean isToken(String string) {
         lexeme = string;
         chars = lexeme.toCharArray();
-        System.out.println("size is 1" + chars.length);
-        for (char c : chars) {
-            System.out.println(c);
-        }
         char c = chars[0];
         switch (c){
 
