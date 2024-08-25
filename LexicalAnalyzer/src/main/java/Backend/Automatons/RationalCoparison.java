@@ -13,7 +13,7 @@ public class RationalCoparison   extends Automaton{
         switch (chars[current]) {
             case '=':
                 current ++;
-                if (chars[current] == '-' ^ isTheLast()) {
+                if (isTheLast() && (chars[current] == '=')) {
                     //Es un token 'igual'
                     isToken = true;
                     token = new Token(lexeme, TokensTypes.Igual.color, TokensTypes.Igual.name());

@@ -3,9 +3,9 @@ package Backend.Enum;
 public enum TokensTypes {
     Identificador("#FFD300"),
 
-    //OPERADORES
+    //OPERATORS
 
-    //Aritmeticos
+    //Arithmetics
     Suma("#FF33FF"),
     Resta("#C1946B"),
     Exponente("#FCD0B4"),
@@ -13,7 +13,7 @@ public enum TokensTypes {
     Modulo("#D9AB41"),
     Multiplicacion("#D80073"),
 
-    //Relacionales o de Comparacion
+    //Relational or of Comparison
     Igual("#6A00FF"),
     Diferente("#3F2212"),
     MayorQue("#D9D441"),
@@ -21,10 +21,14 @@ public enum TokensTypes {
     MayorOIgualQue("#E3C800"),
     MenorOIgualQue("#F0A30A"),
 
-    //Logicos
+    //Logics
     y("#414ED0"),
     o("#41D95D"),
-    negacion("#A741D9")
+    negacion("#A741D9"),
+
+    //Assignment
+    AsiganacionSimple("#41D9D4"),
+    AsignacionCompuesta("#FFFFFF")
     ;
 
     public final String color;

@@ -1,9 +1,7 @@
 package Backend;
 
-import Backend.Automatons.ArithmeticOperator;
-import Backend.Automatons.Identifier;
-import Backend.Automatons.Logical;
-import Backend.Automatons.RationalCoparison;
+import Backend.Automatons.*;
+
 import java.util.ArrayList;
 
 public class LexicalAnalyzer {
@@ -14,9 +12,10 @@ public class LexicalAnalyzer {
     private final ArithmeticOperator arithmeticOperator = new ArithmeticOperator();
     private final RationalCoparison rationalCoparison = new RationalCoparison();
     private final Logical logical = new Logical();
+    private final Assignment assignment = new Assignment();
 
 
-    String prueba = "not";
+    String prueba = "/=";
     Token token;
     public void analyzeTokens(int row, int column){
 
@@ -26,6 +25,8 @@ public class LexicalAnalyzer {
             token = rationalCoparison.getToken(column,row);
         } else if (logical.isToken(prueba)) {
             token = logical.getToken(column,row);
+        } else if (assignment.isToken(prueba)){
+            token = assignment.getToken(column,row);
         } else if (identifier.isToken(prueba)){
             token = identifier.getToken(row,column);
         }

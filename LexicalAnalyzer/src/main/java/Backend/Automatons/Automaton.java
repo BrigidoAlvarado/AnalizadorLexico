@@ -1,5 +1,6 @@
 package Backend.Automatons;
 
+import Backend.Enum.TokensTypes;
 import Backend.Token;
 
 public abstract class Automaton {
@@ -49,4 +50,20 @@ public abstract class Automaton {
         return current == (chars.length - 1);
     }
 
+    protected boolean isAReservedWord(char [] word){
+        boolean flag = false;
+        current ++;
+        for (char c : word){
+            if ( isTheLast() && c == chars[current]) {
+                isToken = true;
+                flag = true;
+                break;
+            } else  if (c == chars[current]) {
+                current++;
+            } else {
+                break;
+            }
+        }
+        return flag;
+    }
 }
