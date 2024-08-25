@@ -26,7 +26,7 @@ public class RationalCoparison   extends Automaton{
                 if (isTheLast()){
                     //Es un token 'Menor que'
                     isToken = true;
-                    token = new Token(lexeme, TokensTypes.MenorQue.color, TokensTypes.MenorQue.name());
+                    token = new Token(lexeme, TokensTypes.Menor_Que.color, TokensTypes.Menor_Que.name());
                 } else{
                     current++;
                     if (isTheLast()) {
@@ -37,7 +37,7 @@ public class RationalCoparison   extends Automaton{
                         } else if (chars[current] == '=') {
                             //Es un token 'Menor o igual que'
                             isToken = true;
-                            token = new Token(lexeme, TokensTypes.MenorOIgualQue.color, TokensTypes.MenorOIgualQue.name());
+                            token = new Token(lexeme, TokensTypes.Menor_o_Igual_Que.color, TokensTypes.Menor_o_Igual_Que.name());
                         }
                     }
                 }
@@ -46,13 +46,13 @@ public class RationalCoparison   extends Automaton{
                 if (isTheLast()){
                     //Es un token 'Mayor que'
                     isToken = true;
-                    token = new Token(lexeme, TokensTypes.MayorQue.color, TokensTypes.MayorQue.name());
+                    token = new Token(lexeme, TokensTypes.Mayor_Que.color, TokensTypes.Mayor_Que.name());
                 }  else{
                     current++;
                     if (isTheLast() && chars[current] == '='){
                             //Es un token 'Mayor o igual que'
                             isToken = true;
-                            token = new Token(lexeme, TokensTypes.MayorOIgualQue.color, TokensTypes.MayorOIgualQue.name());
+                            token = new Token(lexeme, TokensTypes.Mayor_o_Igual_Que.color, TokensTypes.Mayor_o_Igual_Que.name());
                         }
                     }
                 break;

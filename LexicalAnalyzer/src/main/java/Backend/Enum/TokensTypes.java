@@ -16,10 +16,10 @@ public enum TokensTypes {
     //Relational or of Comparison
     Igual("#6A00FF"),
     Diferente("#3F2212"),
-    MayorQue("#D9D441"),
-    MenorQue("#D94A41"),
-    MayorOIgualQue("#E3C800"),
-    MenorOIgualQue("#F0A30A"),
+    Mayor_Que("#D9D441"),
+    Menor_Que("#D94A41"),
+    Mayor_o_Igual_Que("#E3C800"),
+    Menor_o_Igual_Que("#F0A30A"),
 
     //Logics
     y("#414ED0"),
@@ -27,8 +27,11 @@ public enum TokensTypes {
     negacion("#A741D9"),
 
     //Assignment
-    AsiganacionSimple("#41D9D4"),
-    AsignacionCompuesta("#FFFFFF")
+    Asiganacion_Simple("#41D9D4"),
+    Asignacion_Compuesta("#FFFFFF"),
+
+    //Reserved Words
+    Palabra_Reservada("#60A917")
     ;
 
     public final String color;
@@ -36,4 +39,5 @@ public enum TokensTypes {
     TokensTypes(String color){
         this.color = color;
     }
+
 }

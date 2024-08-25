@@ -1,6 +1,5 @@
 package Backend.Automatons;
 
-import Backend.Enum.TokensTypes;
 import Backend.Token;
 
 public abstract class Automaton {
@@ -50,17 +49,46 @@ public abstract class Automaton {
         return current == (chars.length - 1);
     }
 
-    protected boolean isAReservedWord(char [] word){
+    protected boolean isAReservedFinalWord(char [] word){
         boolean flag = false;
         current ++;
         for (char c : word){
             if ( isTheLast() && c == chars[current]) {
-                isToken = true;
                 flag = true;
+                System.out.println("llego al final "+chars[current]);
+                System.out.println(c);
                 break;
             } else  if (c == chars[current]) {
-                current++;
+                System.out.println("continua "+chars[current]);
+                System.out.println(c);
+                current ++;
             } else {
+                System.out.println("fallo "+chars[current]);
+                System.out.println(c);
+                break;
+            }
+        }
+        return flag;
+    }
+
+    protected boolean isAReservedWord(char [] word){
+        boolean flag = false;
+        current ++;
+        int counter = 0;
+        for (char c : word){
+            counter++;
+            if (c == chars[current]){
+                System.out.println("continua "+chars[current]);
+                System.out.println(c);
+                if (counter < (word.length - 1)) {
+                    current++;
+                } else {
+                    System.out.println("llego al final");
+                    isToken = true;
+                }
+            } else {
+                System.out.println("fallo "+chars[current]);
+                System.out.println(c);
                 break;
             }
         }
