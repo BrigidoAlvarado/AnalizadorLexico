@@ -19,7 +19,12 @@ public enum TokensTypes {
     MayorQue("#D9D441"),
     MenorQue("#D94A41"),
     MayorOIgualQue("#E3C800"),
-    MenorOIgualQue("#F0A30A")
+    MenorOIgualQue("#F0A30A"),
+
+    //Logicos
+    y("#414ED0"),
+    o("#41D95D"),
+    negacion("#A741D9")
     ;
 
     public final String color;

@@ -5,8 +5,6 @@ import Backend.Token;
 
 public class ArithmeticOperator extends Automaton {
 
-    private Token token;
-
     @Override
     public boolean isToken(String string) {
         lexeme = string;
@@ -71,12 +69,5 @@ public class ArithmeticOperator extends Automaton {
                 isToken = false;
         }
         return isToken;
-    }
-
-    @Override
-    public Token getToken(int column, int row) {
-        token.setRow(row);
-        token.setColumn(column);
-        return token;
     }
 }

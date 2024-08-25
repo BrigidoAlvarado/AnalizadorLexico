@@ -5,8 +5,6 @@ import Backend.Token;
 
 public class RationalCoparison   extends Automaton{
 
-    private Token token;
-
     @Override
     public boolean isToken(String string) {
 
@@ -60,12 +58,5 @@ public class RationalCoparison   extends Automaton{
                 break;
         }
         return isToken;
-    }
-
-    @Override
-    public Token getToken(int column, int row) {
-        token.setRow(row);
-        token.setColumn(column);
-        return token;
     }
 }
