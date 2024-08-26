@@ -51,21 +51,25 @@ public abstract class Automaton {
 
     protected boolean isAReservedFinalWord(char [] word){
         boolean flag = false;
+        int counter = 0;
         current ++;
-        for (char c : word){
-            if ( isTheLast() && c == chars[current]) {
-                flag = true;
-                System.out.println("llego al final "+chars[current]);
-                System.out.println(c);
-                break;
-            } else  if (c == chars[current]) {
-                System.out.println("continua "+chars[current]);
-                System.out.println(c);
-                current ++;
-            } else {
-                System.out.println("fallo "+chars[current]);
-                System.out.println(c);
-                break;
+        if (chars.length >= word.length) {
+            for (char c : word){
+                counter ++;
+                if ( isTheLast() && c == chars[current] && counter == word.length) {
+                    flag = true;
+                    System.out.println("llego al final "+chars[current]);
+                    System.out.println(c);
+                    break;
+                } else  if (c == chars[current]) {
+                    System.out.println("continua "+chars[current]);
+                    System.out.println(c);
+                    current ++;
+                } else {
+                    System.out.println("fallo "+chars[current]);
+                    System.out.println(c);
+                    break;
+                }
             }
         }
         return flag;
@@ -75,23 +79,27 @@ public abstract class Automaton {
         boolean flag = false;
         current ++;
         int counter = 0;
-        for (char c : word){
-            counter++;
-            if (c == chars[current]){
-                System.out.println("continua "+chars[current]);
-                System.out.println(c);
-                if (counter < (word.length - 1)) {
-                    current++;
+        if (chars.length > word.length) {
+            for (char c : word){
+                if (c == chars[current]){
+                    if (counter < (word.length - 1)) {
+                        System.out.println("continua "+chars[current]);
+                        System.out.println(c);
+                        current++;
+                    } else {
+                        System.out.println("llego al final");
+                        flag = true;
+                        break;
+                    }
                 } else {
-                    System.out.println("llego al final");
-                    isToken = true;
+                    System.out.println("fallo "+chars[current]);
+                    System.out.println(c);
+                    break;
                 }
-            } else {
-                System.out.println("fallo "+chars[current]);
-                System.out.println(c);
-                break;
+                counter++;
             }
         }
+
         return flag;
     }
 }

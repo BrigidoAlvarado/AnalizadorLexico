@@ -10,6 +10,7 @@ public class Identifier  extends Automaton {
         lexeme = string;
         chars = lexeme.toCharArray();
         if (isLetterOrCapitalLetter(chars[current])){
+            isToken = true;
             caseLetter();
         }
         return isToken;

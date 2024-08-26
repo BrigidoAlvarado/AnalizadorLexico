@@ -16,7 +16,7 @@ public class LexicalAnalyzer {
     private final ReservedWords reservedWords = new ReservedWords();
 
 
-    String prueba = "Boolean";
+    String prueba = "W";
     Token token;
     public void analyzeTokens(int row, int column){
 

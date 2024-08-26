@@ -3,6 +3,8 @@ package Backend.Automatons;
 import Backend.Enum.TokensTypes;
 import Backend.Token;
 
+import java.lang.reflect.Array;
+
 public class Logical extends Automaton {
 
     private static final char [] AND = {'A','n','d'};
@@ -14,23 +16,26 @@ public class Logical extends Automaton {
 
         lexeme = string;
         chars = lexeme.toCharArray();
-        switch (chars[0]) {
-            case 'A':
-                isAnd();
-                break;
-            case 'O':
-                isOr();
-                break;
-            case 'N':
-                isNot();
-                break;
-            default:
-                isToken = false;
+        try {
+            switch (chars[0]) {
+                case 'A':
+                    isAnd();
+                    break;
+                case 'O':
+                    isOr();
+                    break;
+                case 'N':
+                    isNot();
+                    break;
+                default:
+                    isToken = false;
 
+            }
+            return isToken;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return false;
         }
-
-
-        return isToken;
     }
 
     private void isAnd(){
