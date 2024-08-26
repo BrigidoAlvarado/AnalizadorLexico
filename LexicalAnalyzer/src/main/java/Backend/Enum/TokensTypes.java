@@ -31,7 +31,14 @@ public enum TokensTypes {
     Asignacion_Compuesta("#FFFFFF"),
 
     //Reserved Words
-    Palabra_Reservada("#60A917")
+    Palabra_Reservada("#60A917"),
+
+    //Data Types
+    Entero("#1BA1E2"),
+    Decimal("#FFFF88"),
+    Cadena("#E51400"),
+    Booleano("#FA6800"),
+    Caracter("#0050EF")
     ;
 
     public final String color;
