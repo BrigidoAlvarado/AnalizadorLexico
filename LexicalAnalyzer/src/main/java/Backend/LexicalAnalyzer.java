@@ -20,6 +20,7 @@ public class LexicalAnalyzer {
 
     String prueba = "Square.Color(#123456,9,2)L";
     Token token;
+
     public void analyzeTokens(int row, int column){
 
         if (signsAndSymbols.isToken(prueba)){
@@ -44,5 +45,9 @@ public class LexicalAnalyzer {
         System.out.println(token.getLexeme());
         System.out.println(token.getKind());
         System.out.println(token.getColor());
+    }
+
+    public void getTokens(String input){
+
     }
 }
