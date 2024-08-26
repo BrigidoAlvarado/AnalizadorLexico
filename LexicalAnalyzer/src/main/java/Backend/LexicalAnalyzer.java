@@ -16,9 +16,9 @@ public class LexicalAnalyzer {
     private final ReservedWords reservedWords = new ReservedWords();
     private final DataTypes dataTypes = new DataTypes();
     private final SignsAndSymbols signsAndSymbols = new SignsAndSymbols();
+    private final SquareColor squareColor = new SquareColor();
 
-
-    String prueba = "]";
+    String prueba = "Square.Color(#123456,9,2)L";
     Token token;
     public void analyzeTokens(int row, int column){
 
@@ -38,6 +38,8 @@ public class LexicalAnalyzer {
             token = reservedWords.getToken(column,row);
         } else if (identifier.isToken(prueba)){
             token = identifier.getToken(row,column);
+        } else if (squareColor.isToken(prueba)){
+            token = squareColor.getToken(column,row);
         }
         System.out.println(token.getLexeme());
         System.out.println(token.getKind());

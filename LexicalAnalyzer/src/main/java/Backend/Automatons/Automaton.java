@@ -45,6 +45,17 @@ public abstract class Automaton {
         return flag;
     }
 
+    protected boolean isACapitalLetter(char symbol){
+        boolean flag = false;
+        for (char letter : capitalLetters) {
+            if (symbol == letter) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
     protected boolean isTheLast(){
         return current == (chars.length - 1);
     }
@@ -82,6 +93,7 @@ public abstract class Automaton {
         if (chars.length > word.length) {
             for (char c : word){
                 if (c == chars[current]){
+                    System.out.println("coinciden entrada: "+chars[current]+ " molde "+c);
                     if (counter < (word.length - 1)) {
                         System.out.println("continua "+chars[current]);
                         System.out.println(c);
