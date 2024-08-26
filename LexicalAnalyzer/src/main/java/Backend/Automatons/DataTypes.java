@@ -13,18 +13,24 @@ public class DataTypes extends Automaton{
         lexeme = string;
         chars =lexeme.toCharArray();
 
-        if (isNumber(chars[current])){
-            token = new Token(lexeme, TokensTypes.Entero.color, TokensTypes.Entero.name());
-            isToken = true;
-            numberWithoutDot();
-        } else if (chars[current] == '"'){
-            startWithQuotationMarks();
-        } else if (chars[current] == '\''){
-            starWithQuote();
-        } else if (chars[current] == 'T' || chars[current] == 'F'){
-            booleanType();
+        try {
+            if (isNumber(chars[current])){
+                token = new Token(lexeme, TokensTypes.Entero.color, TokensTypes.Entero.name());
+                isToken = true;
+                numberWithoutDot();
+            } else if (chars[current] == '"'){
+                startWithQuotationMarks();
+            } else if (chars[current] == '\''){
+                starWithQuote();
+            } else if (chars[current] == 'T' || chars[current] == 'F'){
+                booleanType();
+            }
+            return isToken;
+        } catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+            System.out.println("retornando false");
+            return false;
         }
-        return isToken;
     }
 
     private void numberWithoutDot(){

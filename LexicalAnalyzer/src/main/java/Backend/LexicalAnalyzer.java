@@ -15,13 +15,16 @@ public class LexicalAnalyzer {
     private final Assignment assignment = new Assignment();
     private final ReservedWords reservedWords = new ReservedWords();
     private final DataTypes dataTypes = new DataTypes();
+    private final SignsAndSymbols signsAndSymbols = new SignsAndSymbols();
 
 
-    String prueba = "False";
+    String prueba = "]";
     Token token;
     public void analyzeTokens(int row, int column){
 
-        if (dataTypes.isToken(prueba)){
+        if (signsAndSymbols.isToken(prueba)){
+            token = signsAndSymbols.getToken(row,column);
+        } else if (dataTypes.isToken(prueba)){
             token = dataTypes.getToken(row,column);
         } else if (arithmeticOperator.isToken(prueba)){
             token = arithmeticOperator.getToken(column,row);

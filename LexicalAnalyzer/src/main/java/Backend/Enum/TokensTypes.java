@@ -38,7 +38,14 @@ public enum TokensTypes {
     Decimal("#FFFF88"),
     Cadena("#E51400"),
     Booleano("#FA6800"),
-    Caracter("#0050EF")
+    Caracter("#0050EF"),
+
+    //Signs and symbols
+    Parentesis("#9AD8DB"),
+    Llaves("#DBD29A"),
+    Corchetes("#DBA49A"),
+    Coma("#B79ADB"),
+    Punto("#9ADBA6")
     ;
 
     public final String color;
