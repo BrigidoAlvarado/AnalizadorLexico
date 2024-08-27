@@ -4,11 +4,17 @@
  */
 package Frontend;
 
+import Backend.LexicalAnalyzer;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brigidoalvarado
  */
 public class AnalyzerApp extends javax.swing.JFrame {
+
+    private  LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
+    private Pixel[][] canvas;
 
     /**
      * Creates new form AnalyzerApp
@@ -29,29 +35,28 @@ public class AnalyzerApp extends javax.swing.JFrame {
         editorContainer = new javax.swing.JPanel();
         chargeFilejBttn = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        imputjTxtAr = new javax.swing.JTextArea();
         rowNumberjTxtFld = new javax.swing.JTextField();
         columnNumberjTxtFld = new javax.swing.JTextField();
         rowNumberjLbl = new javax.swing.JLabel();
         columnNumberjLbl = new javax.swing.JLabel();
         printjBttn = new javax.swing.JButton();
-        containerBoard = new javax.swing.JPanel();
+        containerCanvasjPnl = new javax.swing.JPanel();
         jMnBr = new javax.swing.JMenuBar();
         ReportjMn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         editorContainer.setBackground(new java.awt.Color(102, 102, 102));
         editorContainer.setForeground(new java.awt.Color(102, 102, 102));
         editorContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chargeFilejBttn.setText("Cargar Archivo");
-        editorContainer.add(chargeFilejBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 560, -1));
+        editorContainer.add(chargeFilejBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 570, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane.setViewportView(jTextArea1);
+        imputjTxtAr.setColumns(20);
+        imputjTxtAr.setRows(5);
+        jScrollPane.setViewportView(imputjTxtAr);
 
         editorContainer.add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 560, 368));
         editorContainer.add(rowNumberjTxtFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 40, -1));
@@ -64,32 +69,69 @@ public class AnalyzerApp extends javax.swing.JFrame {
         editorContainer.add(columnNumberjLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, -1, -1));
 
         printjBttn.setText("PINTAR");
+        printjBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printjBttnActionPerformed(evt);
+            }
+        });
         editorContainer.add(printjBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 410, -1));
-
-        getContentPane().add(editorContainer);
-
-        containerBoard.setBackground(new java.awt.Color(102, 102, 102));
-        containerBoard.setLayout(new java.awt.GridLayout());
-        getContentPane().add(containerBoard);
 
         ReportjMn.setText("Reportes");
         jMnBr.add(ReportjMn);
 
         setJMenuBar(jMnBr);
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(editorContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(containerCanvasjPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(editorContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(containerCanvasjPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void printjBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printjBttnActionPerformed
+        // TODO add your handling code here:
+        try {
+            int row = Integer.parseInt(rowNumberjTxtFld.getText());
+            int column = Integer.parseInt(columnNumberjTxtFld.getText());
+            canvas = new Pixel [row][column];
+            String input = imputjTxtAr.getText();
+            System.out.println(input);
+            lexicalAnalyzer = new LexicalAnalyzer();
+            lexicalAnalyzer.analyze(input, canvas);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Numero invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_printjBttnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ReportjMn;
     private javax.swing.JButton chargeFilejBttn;
     private javax.swing.JLabel columnNumberjLbl;
     private javax.swing.JTextField columnNumberjTxtFld;
-    private javax.swing.JPanel containerBoard;
+    private javax.swing.JPanel containerCanvasjPnl;
     private javax.swing.JPanel editorContainer;
+    private javax.swing.JTextArea imputjTxtAr;
     private javax.swing.JMenuBar jMnBr;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton printjBttn;
     private javax.swing.JLabel rowNumberjLbl;
     private javax.swing.JTextField rowNumberjTxtFld;
