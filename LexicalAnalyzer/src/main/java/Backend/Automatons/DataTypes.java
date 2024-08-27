@@ -21,7 +21,12 @@ public class DataTypes extends Automaton{
             } else if (chars[current] == '"'){
                 startWithQuotationMarks();
             } else if (chars[current] == '\''){
-                starWithQuote();
+                if (isTheLast()){
+                    isToken = true;
+                    token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
+                } else{
+                    starWithQuote();
+                }
             } else if (chars[current] == 'T' || chars[current] == 'F'){
                 booleanType();
             }
@@ -90,7 +95,13 @@ public class DataTypes extends Automaton{
                 // si le sigue una comilla simple y esta es el ultimo caracter entonces es un caracter
                 isToken = true;
                 token = new Token(lexeme, TokensTypes.Caracter.color, TokensTypes.Caracter.name());
+            } else {
+                isToken = true;
+                token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
             }
+        } else {
+            isToken = true;
+            token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
         }
     }
 
@@ -99,6 +110,9 @@ public class DataTypes extends Automaton{
         if (current <= chars.length){
             if (isLetterOrCapitalLetter(chars[current]) || isNumber(chars[current])){
                 charContent();
+            } else {
+                isToken = true;
+                token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
             }
         }
     }

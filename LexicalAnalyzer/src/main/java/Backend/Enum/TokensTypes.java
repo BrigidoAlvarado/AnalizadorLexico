@@ -45,7 +45,10 @@ public enum TokensTypes {
     Llaves("#DBD29A"),
     Corchetes("#DBA49A"),
     Coma("#B79ADB"),
-    Punto("#9ADBA6")
+    Punto("#9ADBA6"),
+
+    //Comment
+    Comentario("#B3B3B3")
     ;
 
     public final String color;
