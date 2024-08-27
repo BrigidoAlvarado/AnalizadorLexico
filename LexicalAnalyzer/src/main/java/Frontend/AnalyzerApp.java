@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
  * @author brigidoalvarado
  */
 public class AnalyzerApp extends javax.swing.JFrame {
-
     private  LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
     private Pixel[][] canvas;
 

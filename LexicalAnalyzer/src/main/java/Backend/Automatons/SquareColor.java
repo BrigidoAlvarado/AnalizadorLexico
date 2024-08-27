@@ -1,5 +1,6 @@
 package Backend.Automatons;
 
+import Backend.LexicalAnalyzer;
 import Backend.Token;
 
 public class SquareColor extends Automaton{
@@ -43,7 +44,6 @@ public class SquareColor extends Automaton{
             color2();
         }
     }
-
     private void color2(){
         current++;
         if (isACapitalLetter(chars[current]) || isNumber(chars[current])){
@@ -51,8 +51,6 @@ public class SquareColor extends Automaton{
             color3();
         }
     }
-
-
     private void color3(){
         current++;
         if (isACapitalLetter(chars[current]) || isNumber(chars[current])){
@@ -74,7 +72,6 @@ public class SquareColor extends Automaton{
             color6();
         }
     }
-
     private void color6(){
         current++;
         if (chars[current] == ','){
@@ -110,8 +107,9 @@ public class SquareColor extends Automaton{
     private void column(){
         current++;
         if (chars[current] == ')' && isTheLast()){
-            isToken = true;
+            isToken = false;
             token = new Token(lexeme, color, NAME,row,column);
+            LexicalAnalyzer.addSpecialToken(token);
         }
     }
 

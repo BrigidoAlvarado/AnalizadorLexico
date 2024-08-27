@@ -17,13 +17,15 @@ public class LexicalAnalyzer {
     private final SignsAndSymbols signsAndSymbols = new SignsAndSymbols();
     private final SquareColor squareColor = new SquareColor();
     private final PossibleTokenSeparator tokenSeparator = new PossibleTokenSeparator();
-    
+
+    private static ArrayList<Token> specialTokens = new ArrayList<>();
+
     private ArrayList<String> possibleTokens;
     private ArrayList<Token> tokens;
     private ArrayList<Token>  squareColorWithAddress;
     private Pixel [][] canvas;
 
-    String prueba = "'l";
+    String prueba = "Square.Color(#123456)";
     Token token;
 
     public void analyzeTokens(int row, int column){
@@ -47,13 +49,24 @@ public class LexicalAnalyzer {
         } else if (squareColor.isToken(prueba)){
             token = squareColor.getToken(column,row);
         }
-        System.out.println(token.getLexeme());
-        System.out.println(token.getKind());
-        System.out.println(token.getColor());
+        if (token != null){
+            System.out.println(token.getLexeme());
+            System.out.println(token.getKind());
+            System.out.println(token.getColor());
+        }
+        System.out.println(specialTokens.size());
     }
 
     public void analyze(String input, Pixel[][] canvas ){
         this.canvas = canvas;
         possibleTokens = tokenSeparator.getPossibleTokens(input);
+    }
+
+    private void paintCanvas(){
+        //for ()
+    }
+
+    public static void addSpecialToken(Token specialToken){
+        specialTokens.add(specialToken);
     }
 }
