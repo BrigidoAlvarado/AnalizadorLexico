@@ -1,6 +1,6 @@
 package Backend.Automatons;
 
-import Backend.LexicalAnalyzer;
+import Backend.analyzers.LexicalAnalyzer;
 import Backend.Token;
 
 public class SquareColor extends Automaton{
@@ -30,7 +30,7 @@ public class SquareColor extends Automaton{
             }
             System.out.println(color);
         } catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("retornando false desde color");
             return false;
         }

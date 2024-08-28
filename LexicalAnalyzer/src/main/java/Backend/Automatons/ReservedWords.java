@@ -183,8 +183,8 @@ public class ReservedWords extends Automaton{
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-            System.out.println("retornanado un false");
+            //e.printStackTrace();
+            System.out.println("retornanado un false desde reserved words");
             return false;
         }
     }

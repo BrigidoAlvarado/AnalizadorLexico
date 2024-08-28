@@ -69,7 +69,8 @@ public class ArithmeticOperator extends Automaton {
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("retornando false desde operator");
             return false;
         }
     }

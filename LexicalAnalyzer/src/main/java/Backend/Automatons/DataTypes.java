@@ -32,8 +32,8 @@ public class DataTypes extends Automaton{
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-            System.out.println("retornando false");
+            //e.printStackTrace();
+            System.out.println("retornando false desde data types");
             return false;
         }
     }

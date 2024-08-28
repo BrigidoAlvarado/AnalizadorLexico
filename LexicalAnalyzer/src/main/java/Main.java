@@ -1,13 +1,13 @@
-import Backend.LexicalAnalyzer;
+import Backend.analyzers.LexicalAnalyzer;
 import Frontend.AnalyzerApp;
 
 public class Main {
     public static void main(String[] args) {
         //LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
         //lexicalAnalyzer.analyzeTokens(0,0);
-            //AnalyzerApp analyzerApp = new AnalyzerApp();
-            //analyzerApp.setVisible(true);
-        int [][] tablero = new int[3][3];
+            AnalyzerApp analyzerApp = new AnalyzerApp();
+            analyzerApp.setVisible(true);
+        /* int [][] tablero = new int[3][3];
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero.length; j++) {
                 tablero[i][j] = i+j;
@@ -19,6 +19,6 @@ public class Main {
                 System.out.print(tablero[fila][columna] + " ");
             }
             System.out.println();
-        }
+        }*/
     }
 }

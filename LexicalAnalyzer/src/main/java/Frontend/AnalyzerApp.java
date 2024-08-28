@@ -4,7 +4,7 @@
  */
 package Frontend;
 
-import Backend.LexicalAnalyzer;
+import Backend.analyzers.LexicalAnalyzer;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author brigidoalvarado
  */
 public class AnalyzerApp extends javax.swing.JFrame {
-    private  LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
+    private  LexicalAnalyzer lexicalAnalyzer;
     private Pixel[][] canvas;
 
     /**
@@ -109,18 +109,25 @@ public class AnalyzerApp extends javax.swing.JFrame {
         try {
             int row = Integer.parseInt(rowNumberjTxtFld.getText());
             int column = Integer.parseInt(columnNumberjTxtFld.getText());
-            canvas = new Pixel [row][column];
             String input = imputjTxtAr.getText();
             System.out.println(input);
             lexicalAnalyzer = new LexicalAnalyzer();
+            createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Numero invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_printjBttnActionPerformed
 
+    private void createCanvas(int row, int column){
+        canvas = new Pixel[row][column];
+            for (int i = 0; i < canvas.length; i++) {
+                for (int j = 0; j < canvas[i].length; j++) {
+                    canvas[i][j] = new Pixel();
+                }
+            }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ReportjMn;
     private javax.swing.JButton chargeFilejBttn;

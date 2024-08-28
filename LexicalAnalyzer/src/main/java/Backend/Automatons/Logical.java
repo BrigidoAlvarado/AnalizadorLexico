@@ -33,7 +33,8 @@ public class Logical extends Automaton {
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("retornando false desde logical");
             return false;
         }
     }

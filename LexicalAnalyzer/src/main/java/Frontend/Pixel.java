@@ -4,11 +4,32 @@
  */
 package Frontend;
 
+import Backend.Token;
+
+import java.awt.*;
+
+import static java.awt.Color.decode;
+
 /**
  *
  * @author brigidoalvarado
  */
 public class Pixel extends javax.swing.JButton{
     
+    private Token token;
+    private boolean hasToken = false;
+
+    public void setToken(Token token){
+        hasToken = true;
+        this.token = token;
+        this.setBackground(Color.decode(token.getColor()));
+    }
+
+    public boolean hasToken(){
+        return  hasToken;
+    }
     
+    public Token getToken(){
+        return token;
+    }
 }
