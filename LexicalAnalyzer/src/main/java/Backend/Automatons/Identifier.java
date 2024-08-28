@@ -68,9 +68,9 @@ public class Identifier  extends Automaton {
     }
 
     @Override
-    public Token getToken(int row, int column) {
+    public Token getToken() {
 
-        return new Token(lexeme, TokensTypes.Identificador.color, TokensTypes.Identificador.name(),row,column);
+        return new Token(lexeme, TokensTypes.Identificador.color, TokensTypes.Identificador.name());
     }
 
 

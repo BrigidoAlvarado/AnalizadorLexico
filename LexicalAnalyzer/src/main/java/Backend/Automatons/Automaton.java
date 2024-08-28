@@ -14,9 +14,7 @@ public abstract class Automaton {
 
   public abstract boolean isToken(String string);
 
-    public Token getToken(int column, int row) {
-        token.setRow(row);
-        token.setColumn(column);
+    public Token getToken() {
         return token;
     }
 
@@ -69,16 +67,10 @@ public abstract class Automaton {
                 counter ++;
                 if ( isTheLast() && c == chars[current] && counter == word.length) {
                     flag = true;
-                    System.out.println("llego al final "+chars[current]);
-                    System.out.println(c);
                     break;
                 } else  if (c == chars[current]) {
-                    System.out.println("continua "+chars[current]);
-                    System.out.println(c);
                     current ++;
                 } else {
-                    System.out.println("fallo "+chars[current]);
-                    System.out.println(c);
                     break;
                 }
             }
@@ -93,25 +85,18 @@ public abstract class Automaton {
         if (chars.length > word.length) {
             for (char c : word){
                 if (c == chars[current]){
-                    System.out.println("coinciden entrada: "+chars[current]+ " molde "+c);
                     if (counter < (word.length - 1)) {
-                        System.out.println("continua "+chars[current]);
-                        System.out.println(c);
                         current++;
                     } else {
-                        System.out.println("llego al final");
                         flag = true;
                         break;
                     }
                 } else {
-                    System.out.println("fallo "+chars[current]);
-                    System.out.println(c);
                     break;
                 }
                 counter++;
             }
         }
-
-        return flag;
+       return flag;
     }
 }

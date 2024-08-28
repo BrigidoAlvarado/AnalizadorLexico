@@ -13,6 +13,7 @@ public class Token {
         this.kind = kind;
         this.row = row;
         this.column = column;
+        System.out.println("se  creo la clase con "+this.row+" "+column);
     }
 
     public Token (String lexeme, String color, String kind) {

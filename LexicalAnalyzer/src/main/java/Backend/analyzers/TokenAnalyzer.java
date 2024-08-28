@@ -13,7 +13,6 @@ import Backend.Automatons.RationalCoparison;
 import Backend.Automatons.ReservedWords;
 import Backend.Automatons.SignsAndSymbols;
 import Backend.Automatons.SquareColor;
-import Backend.PossibleTokenSeparator;
 import Backend.Token;
 
 /**
@@ -21,6 +20,7 @@ import Backend.Token;
  * @author brigidoalvarado
  */
 public class TokenAnalyzer {
+    
     private final Identifier identifier = new Identifier();
     private final ArithmeticOperator arithmeticOperator = new ArithmeticOperator();
     private final RationalCoparison rationalCoparison = new RationalCoparison();
@@ -31,30 +31,28 @@ public class TokenAnalyzer {
     private final SignsAndSymbols signsAndSymbols = new SignsAndSymbols();
     private final SquareColor squareColor = new SquareColor();
     
+    
     public Token analyzeTokens(int row, int column, String input) {
         Token token = null;
-        System.out.println("el input es " + input);
         if (signsAndSymbols.isToken(input)) {
-            token = signsAndSymbols.getToken(row, column);
+            token = signsAndSymbols.getToken();
         } else if (dataTypes.isToken(input)) {
-            token = dataTypes.getToken(row, column);
+            token = dataTypes.getToken();
         } else if (arithmeticOperator.isToken(input)) {
-            token = arithmeticOperator.getToken(column, row);
+            token = arithmeticOperator.getToken();
         } else if (rationalCoparison.isToken(input)) {
-            token = rationalCoparison.getToken(column, row);
+            token = rationalCoparison.getToken();
         } else if (logical.isToken(input)) {
-            token = logical.getToken(column, row);
+            token = logical.getToken();
         } else if (assignment.isToken(input)) {
-            token = assignment.getToken(column, row);
+            token = assignment.getToken();
         } else if (reservedWords.isToken(input)) {
-            token = reservedWords.getToken(column, row);
+            token = reservedWords.getToken();
         } else if (identifier.isToken(input)) {
-            token = identifier.getToken(row, column);
+            token = identifier.getToken();
         } else if (squareColor.isToken(input)) {
-            token = squareColor.getToken(column, row);
+            token = squareColor.getToken();
         }
-        System.out.println("el token resultante es:");
-        System.out.println(token.getLexeme());
         return token;
     }
 }

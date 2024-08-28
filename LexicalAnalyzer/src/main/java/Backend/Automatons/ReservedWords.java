@@ -95,7 +95,11 @@ public class ReservedWords extends Automaton{
                             isToken = chars[current] == 'm';
                             break;
                         case 'o':
-                            isToken = isAReservedFinalWord(DOUBLE);
+                            if (isTheLast()) {
+                                isToken = true;
+                            } else{
+                            isToken = isAReservedFinalWord(DOUBLE);                                
+                            }
                             break;
                     }
                     break;
@@ -190,7 +194,7 @@ public class ReservedWords extends Automaton{
     }
 
     @Override
-    public Token getToken(int row, int column){
-        return  new Token(lexeme, TokensTypes.Palabra_Reservada.color, TokensTypes.Palabra_Reservada.name(), row, column);
+    public Token getToken(){
+        return  new Token(lexeme, TokensTypes.Palabra_Reservada.color, TokensTypes.Palabra_Reservada.name());
     }
 }

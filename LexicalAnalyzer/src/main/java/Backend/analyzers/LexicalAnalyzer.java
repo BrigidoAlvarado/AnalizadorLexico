@@ -19,58 +19,33 @@ public class LexicalAnalyzer {
     private Pixel[][] canvas;
 
     public void analyze(String input, Pixel[][] canvas) {
-        // se inicia el tablero
+        specialTokens = new ArrayList<>();
         this.canvas = canvas;
-        //se iniciar un arreglo de posible tokens
-        //se extraen los posibles tokens
         possibleTokens = tokenSeparator.getPossibleTokens(input);
-        System.out.println();
-        System.out.println("los posibles tokens son:");
-        for (String token : possibleTokens) {
-            System.out.println(token);
-        }
-        System.out.println();
-        // se crea un arreglo de tokens
         addTokensToArrayList();
-        System.out.println("estos son los token encontrados");
-        for (Token token : tokens) {
-            System.out.println(token.getLexeme());                
-        }
-
-        //se pintan los pixeles
-        System.out.println("iniciando a pintar pixeles...");
         paintCanvas();
-        System.out.println("estos son los pixeles guardados");
-        for (Pixel[] canva : canvas) {
-            for (Pixel pixel : canva) {
-                System.out.println(pixel);
-                if (pixel.hasToken()) {
-                   System.out.println(pixel.getToken().getLexeme());                    
+        //se pintan los tokens especiales
+         System.out.println("iniciando pintar pixeles expeciales");
+        paintSpecialsTokens();
+        //los pixeles obetenidos son
+        System.out.println();
+        System.out.println("Los pixeles son guardados son: ");
+        for (int row = 0; row < canvas.length; row++) {
+            for (int column = 0; column < canvas[row].length; column++) {
+                if (canvas[row][column].hasToken()) {
+                   System.out.println(canvas[row][column].getToken().getLexeme());
                 }
             }
         }
-
-        //se pintan los tokens especiales
-        // System.out.println("iniciando pintar pixeles expeciales");
-        //paintSpecialsTokens();
-        //los pixeles obetenidos son
-//        System.out.println();
-//        System.out.println("Los pixeles son: ");
-//        for (int row = 0; row < canvas.length; row++) {
-//            for (int column = 0; column < canvas[row].length; column++) {
-//                System.out.println(canvas[row][column].getToken().getLexeme());
-//                System.out.println(canvas[row][column].getToken().getColor());
-//            }
-//            System.out.println();
-//        }
     }
 
     private void paintCanvas() {
         int counter = 0;
-        for (Pixel[] canva : canvas) {
-            for (Pixel pixel : canva) {
+      
+        for (int row = 0; row < canvas.length; row++) {
+            for (int column = 0; column < canvas[row].length; column++) {
                 try {
-                    pixel.setToken(tokens.get(counter));
+                    canvas[row][column].setToken(tokens.get(counter), row, column);
                     counter++;
                 } catch (IndexOutOfBoundsException e) {
                     break;
@@ -83,11 +58,12 @@ public class LexicalAnalyzer {
         for (Token token : specialTokens) {
             try {
                 int row = token.getRow(), column = token.getColumn();
-                canvas[row][column].setToken(token);
+                canvas[row][column].setToken(token,row,column);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("error de token special");
-                e.printStackTrace();
-                throw new RuntimeException("la posicion fila: " + token.getRow() + ", columna: " + token.getColumn() + " esta fuera de los limites del arreglo");
+                break;
+                //e.printStackTrace();
+//                throw new RuntimeException("la posicion fila: " + token.getRow() + ", columna: " + token.getColumn() + " esta fuera de los limites del arreglo");
             }
         }
     }

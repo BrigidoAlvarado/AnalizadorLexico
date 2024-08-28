@@ -20,8 +20,6 @@ public class SquareColor extends Automaton{
             if (chars[current] == 'S'){
                 if (isAReservedWord(SQUARE_COLOR)){
                     current ++;
-                    System.out.println(chars[current]);
-                    System.out.println(isACapitalLetter(chars[current]));
                     if (isACapitalLetter(chars[current]) || isNumber(chars[current])){
                         color += chars[current];
                         color1();
@@ -84,8 +82,10 @@ public class SquareColor extends Automaton{
 
     private void firsComma(){
         current++;
+        System.out.println("en fistcomma");
+        System.out.println("leyendo el cartcter :"+chars[current]);
         if (isNumber(chars[current])){
-            row = chars[current];
+            row = Character.getNumericValue(chars[current]);
             row();
         }
     }
@@ -99,7 +99,7 @@ public class SquareColor extends Automaton{
     private void secondComma(){
         current++;
         if (isNumber(chars[current])){
-            column = chars[current];
+            column = Character.getNumericValue(chars[current]);
             column();
         }
     }
@@ -109,13 +109,10 @@ public class SquareColor extends Automaton{
         if (chars[current] == ')' && isTheLast()){
             isToken = false;
             token = new Token(lexeme, color, NAME,row,column);
+            System.out.println("se guardo el token especial "+token.getLexeme());
+            System.out.println("fila: "+row+" columna: "+column);
             LexicalAnalyzer.addSpecialToken(token);
         }
-    }
-
-    @Override
-    public Token getToken(int row, int column){
-        return token;
     }
 }
 

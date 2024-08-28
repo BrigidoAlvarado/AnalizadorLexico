@@ -5,6 +5,7 @@
 package Frontend;
 
 import Backend.analyzers.LexicalAnalyzer;
+import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,27 +46,22 @@ public class AnalyzerApp extends javax.swing.JFrame {
         ReportjMn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         editorContainer.setBackground(new java.awt.Color(102, 102, 102));
         editorContainer.setForeground(new java.awt.Color(102, 102, 102));
-        editorContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chargeFilejBttn.setText("Cargar Archivo");
-        editorContainer.add(chargeFilejBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 570, -1));
 
         imputjTxtAr.setColumns(20);
         imputjTxtAr.setRows(5);
         jScrollPane.setViewportView(imputjTxtAr);
 
-        editorContainer.add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 560, 368));
-        editorContainer.add(rowNumberjTxtFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 40, -1));
-        editorContainer.add(columnNumberjTxtFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 56, -1));
-
+        rowNumberjLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rowNumberjLbl.setText("Filas");
-        editorContainer.add(rowNumberjLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 40, -1));
 
+        columnNumberjLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         columnNumberjLbl.setText("Columnas");
-        editorContainer.add(columnNumberjLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, -1, -1));
 
         printjBttn.setText("PINTAR");
         printjBttn.addActionListener(new java.awt.event.ActionListener() {
@@ -73,33 +69,75 @@ public class AnalyzerApp extends javax.swing.JFrame {
                 printjBttnActionPerformed(evt);
             }
         });
-        editorContainer.add(printjBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 410, -1));
+
+        javax.swing.GroupLayout editorContainerLayout = new javax.swing.GroupLayout(editorContainer);
+        editorContainer.setLayout(editorContainerLayout);
+        editorContainerLayout.setHorizontalGroup(
+            editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editorContainerLayout.createSequentialGroup()
+                .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(editorContainerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(editorContainerLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(editorContainerLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(editorContainerLayout.createSequentialGroup()
+                                    .addComponent(rowNumberjLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(columnNumberjLbl))
+                                .addGroup(editorContainerLayout.createSequentialGroup()
+                                    .addComponent(rowNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(columnNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addComponent(printjBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 21, Short.MAX_VALUE))
+        );
+        editorContainerLayout.setVerticalGroup(
+            editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editorContainerLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(chargeFilejBttn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(editorContainerLayout.createSequentialGroup()
+                        .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rowNumberjLbl)
+                            .addComponent(columnNumberjLbl))
+                        .addGap(3, 3, 3)
+                        .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(rowNumberjTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
+                            .addComponent(columnNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(printjBttn))
+                .addGap(15, 15, 15))
+        );
+
+        getContentPane().add(editorContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        javax.swing.GroupLayout containerCanvasjPnlLayout = new javax.swing.GroupLayout(containerCanvasjPnl);
+        containerCanvasjPnl.setLayout(containerCanvasjPnlLayout);
+        containerCanvasjPnlLayout.setHorizontalGroup(
+            containerCanvasjPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 483, Short.MAX_VALUE)
+        );
+        containerCanvasjPnlLayout.setVerticalGroup(
+            containerCanvasjPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(containerCanvasjPnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 0, -1, 480));
 
         ReportjMn.setText("Reportes");
         jMnBr.add(ReportjMn);
 
         setJMenuBar(jMnBr);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(editorContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(containerCanvasjPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(editorContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(containerCanvasjPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,6 +152,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
             lexicalAnalyzer = new LexicalAnalyzer();
             createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas);
+            updateCanvas(row, column);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -126,6 +165,21 @@ public class AnalyzerApp extends javax.swing.JFrame {
                     canvas[i][j] = new Pixel();
                 }
             }
+    }
+    
+    private void updateCanvas(int rows, int columns){
+        containerCanvasjPnl.removeAll();
+        containerCanvasjPnl.setLayout(new GridLayout(rows, rows));
+        for (Pixel[] canva : canvas) {
+            for (Pixel pixel : canva) {
+                containerCanvasjPnl.add(pixel);
+            }
+        }
+        containerCanvasjPnl.repaint();
+        containerCanvasjPnl.revalidate();
+        this.pack();
+        this.repaint();
+        this.revalidate();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
