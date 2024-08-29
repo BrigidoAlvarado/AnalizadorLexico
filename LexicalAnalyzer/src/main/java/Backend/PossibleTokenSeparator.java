@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.Automatons.Automaton;
 import java.util.ArrayList;
 
 public class PossibleTokenSeparator {
@@ -67,12 +68,16 @@ public class PossibleTokenSeparator {
     }
 
     private void quotation() {
-        current++;
+        current ++;
         if (current < (chars.length)) {
             if (chars[current] == LINE_BREAK) {
                 savePossibletoken();
                 voidOrBreakLine();
-            } else {
+            } else if (Automaton.isLetterOrCapitalLetter(chars[current])) {
+                System.out.println("entra a validacion");
+                stringBuider(chars[current]);
+                caracter();
+            }  else {
                 stringBuider(chars[current]);
                 quotation();
             }
@@ -93,6 +98,53 @@ public class PossibleTokenSeparator {
         if (possibleToken != null) {
             possibleTokens.add(possibleToken);
             possibleToken = null;
+        }
+    }
+    
+    private void caracter(){
+        current ++;
+        if (current < chars.length) {
+            if (chars[current] == '\'') {
+                stringBuider(chars[current]);
+                endQuotation();
+            } else if (chars[current] == LINE_BREAK) {
+                savePossibletoken();
+            }  else {
+                stringBuider(chars[current]);
+                comentContent();
+            }
+        } else {
+            savePossibletoken();
+        }
+    }
+    
+    private void endQuotation(){
+        current++;
+        if (current < chars.length) {
+            if (chars[current] == VOID || chars[current] == LINE_BREAK) {
+                savePossibletoken();
+                voidOrBreakLine();
+            } else{
+                stringBuider(chars[current]);
+                comentContent();
+            }
+        } else{
+            savePossibletoken();
+        }
+    }
+    
+    private void comentContent(){
+        current++;
+        if (current < chars.length) {
+            if (chars[current] == LINE_BREAK) {
+                savePossibletoken();
+                voidOrBreakLine();
+            } else{
+                stringBuider(chars[current]);
+                comentContent();
+            }
+        } else{
+            savePossibletoken();
         }
     }
 }
