@@ -32,8 +32,9 @@ public class ReservedWords extends Automaton{
 
 
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
 
         try {
@@ -185,16 +186,12 @@ public class ReservedWords extends Automaton{
                     isToken = isAReservedFinalWord(WHILE);
                     break;
             }
+            token.authorizeToken(TokensTypes.Palabra_Reservada.color, TokensTypes.Palabra_Reservada.name(), isToken);
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e){
             //e.printStackTrace();
             System.out.println("retornanado un false desde reserved words");
             return false;
         }
-    }
-
-    @Override
-    public Token getToken(){
-        return  new Token(lexeme, TokensTypes.Palabra_Reservada.color, TokensTypes.Palabra_Reservada.name());
     }
 }

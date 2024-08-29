@@ -22,8 +22,8 @@ public class Pixel extends javax.swing.JButton{
     public void setToken(Token token, int row, int column){
         hasToken = true;
         this.token = token;
-        this.token.setRow(row);
-        this.token.setColumn(column);
+        this.token.setPixelRow(row);
+        this.token.setPixelColumn(column);
         this.setBackground(Color.decode(token.getColor()));
     }
     

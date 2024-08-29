@@ -6,20 +6,22 @@ import Backend.Token;
 import java.lang.reflect.Array;
 
 public class Assignment extends Automaton{
+
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
 
         try {
             if (chars[current] == '='){
-                token = new Token(lexeme, TokensTypes.Asiganacion_Simple.color, TokensTypes.Asiganacion_Simple.name());
                 equalsCase();
+                token.authorizeToken(TokensTypes.Asiganacion_Simple.color, TokensTypes.Asiganacion_Simple.name(),isToken);
             } else if (chars[current] == '+' || chars[current] == '-'
                     || chars[current] == '*' || chars[current] == '/'){
-                token = new Token(lexeme, TokensTypes.Asignacion_Compuesta.color, TokensTypes.Asignacion_Compuesta.name());
                 current ++;
                 equalsCase();
+                token.authorizeToken(TokensTypes.Asignacion_Compuesta.color, TokensTypes.Asignacion_Compuesta.name(), isToken);
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e) {

@@ -32,27 +32,23 @@ public class TokenAnalyzer {
     private final SquareColor squareColor = new SquareColor();
     
     
-    public Token analyzeTokens(int row, int column, String input) {
-        Token token = null;
-        if (signsAndSymbols.isToken(input)) {
-            token = signsAndSymbols.getToken();
-        } else if (dataTypes.isToken(input)) {
-            token = dataTypes.getToken();
-        } else if (arithmeticOperator.isToken(input)) {
-            token = arithmeticOperator.getToken();
-        } else if (rationalCoparison.isToken(input)) {
-            token = rationalCoparison.getToken();
-        } else if (logical.isToken(input)) {
-            token = logical.getToken();
-        } else if (assignment.isToken(input)) {
-            token = assignment.getToken();
-        } else if (reservedWords.isToken(input)) {
-            token = reservedWords.getToken();
-        } else if (identifier.isToken(input)) {
-            token = identifier.getToken();
-        } else if (squareColor.isToken(input)) {
-            token = squareColor.getToken();
-        }
-        return token;
+    public boolean analyzeTokens(Token  token) {
+        if (signsAndSymbols.validateToken(token)) {
+           return true;
+        } else if (dataTypes.validateToken(token)) {
+             return true;
+        } else if (arithmeticOperator.validateToken(token)) {
+             return true;
+        } else if (rationalCoparison.validateToken(token)) {
+             return true;
+        } else if (logical.validateToken(token)) {
+             return true;
+        } else if (assignment.validateToken(token)) {
+             return true;
+        } else if (reservedWords.validateToken(token)) {
+            return true;
+        } else if (identifier.validateToken(token)) {
+             return true;
+        } else return squareColor.validateToken(token);
     }
 }

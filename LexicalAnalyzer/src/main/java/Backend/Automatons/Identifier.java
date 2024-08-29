@@ -6,13 +6,15 @@ import Backend.Token;
 public class Identifier  extends Automaton {
 
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
         if (isLetterOrCapitalLetter(chars[current])){
             isToken = true;
             caseLetter();
         }
+        token.authorizeToken(TokensTypes.Identificador.color, TokensTypes.Identificador.name(), isToken);
         return isToken;
     }
 
@@ -66,12 +68,4 @@ public class Identifier  extends Automaton {
             }
         }
     }
-
-    @Override
-    public Token getToken() {
-
-        return new Token(lexeme, TokensTypes.Identificador.color, TokensTypes.Identificador.name());
-    }
-
-
 }

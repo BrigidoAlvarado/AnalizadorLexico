@@ -5,13 +5,13 @@ import Backend.Token;
 
 import java.lang.reflect.Array;
 
-public class RationalCoparison   extends Automaton{
+public class RationalCoparison extends Automaton{
 
     @Override
-    public boolean isToken(String string) {
-
-        lexeme = string;
-        chars = string.toCharArray();
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
+        chars = lexeme.toCharArray();
         try {
             switch (chars[current]) {
                 case '=':
@@ -19,7 +19,7 @@ public class RationalCoparison   extends Automaton{
                     if (isTheLast() && (chars[current] == '=')) {
                         //Es un token 'igual'
                         isToken = true;
-                        token = new Token(lexeme, TokensTypes.Igual.color, TokensTypes.Igual.name());
+                        token.authorizeToken(TokensTypes.Igual.color, TokensTypes.Igual.name(), isToken);
                     } else{
                         isToken = false;
                     }
@@ -29,18 +29,18 @@ public class RationalCoparison   extends Automaton{
                     if (isTheLast()){
                         //Es un token 'Menor que'
                         isToken = true;
-                        token = new Token(lexeme, TokensTypes.Menor_Que.color, TokensTypes.Menor_Que.name());
+                        token.authorizeToken(TokensTypes.Menor_Que.color, TokensTypes.Menor_Que.name(), isToken);
                     } else{
                         current++;
                         if (isTheLast()) {
                             if (chars[current] == '>') {
                                 //Es un token 'Diferente'
                                 isToken = true;
-                                token = new Token(lexeme, TokensTypes.Diferente.color, TokensTypes.Diferente.name());
+                                token.authorizeToken(TokensTypes.Diferente.color, TokensTypes.Diferente.name(),isToken);
                             } else if (chars[current] == '=') {
                                 //Es un token 'Menor o igual que'
                                 isToken = true;
-                                token = new Token(lexeme, TokensTypes.Menor_o_Igual_Que.color, TokensTypes.Menor_o_Igual_Que.name());
+                                token.authorizeToken(TokensTypes.Menor_o_Igual_Que.color, TokensTypes.Menor_o_Igual_Que.name(), isToken);
                             }
                         }
                     }
@@ -49,13 +49,13 @@ public class RationalCoparison   extends Automaton{
                     if (isTheLast()){
                         //Es un token 'Mayor que'
                         isToken = true;
-                        token = new Token(lexeme, TokensTypes.Mayor_Que.color, TokensTypes.Mayor_Que.name());
+                        token.authorizeToken(TokensTypes.Mayor_Que.color, TokensTypes.Mayor_Que.name(), isToken);
                     }  else{
                         current++;
                         if (isTheLast() && chars[current] == '='){
                             //Es un token 'Mayor o igual que'
                             isToken = true;
-                            token = new Token(lexeme, TokensTypes.Mayor_o_Igual_Que.color, TokensTypes.Mayor_o_Igual_Que.name());
+                            token.authorizeToken(TokensTypes.Mayor_o_Igual_Que.color, TokensTypes.Mayor_o_Igual_Que.name(), isToken);
                         }
                     }
                     break;

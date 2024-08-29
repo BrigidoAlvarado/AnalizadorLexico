@@ -153,6 +153,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
             createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas);
             updateCanvas(row, column);
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
         }

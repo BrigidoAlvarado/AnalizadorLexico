@@ -5,29 +5,30 @@ import Backend.Token;
 
 public class SignsAndSymbols extends Automaton {
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
         switch (chars[current]) {
             case '(',')':
                 isToken = isTheLast();
-                token = new Token(lexeme, TokensTypes.Parentesis.color, TokensTypes.Parentesis.name());
+                token.authorizeToken(TokensTypes.Parentesis.color, TokensTypes.Parentesis.name(), isToken);
                 break;
             case '{','}':
                 isToken = isTheLast();
-                token = new Token(lexeme, TokensTypes.Llaves.color, TokensTypes.Llaves.name());
+                token.authorizeToken(TokensTypes.Llaves.color, TokensTypes.Llaves.name(), isToken);
                 break;
             case '[',']':
                 isToken = isTheLast();
-                token = new Token(lexeme, TokensTypes.Corchetes.color, TokensTypes.Corchetes.name());
+                token.authorizeToken(TokensTypes.Corchetes.color, TokensTypes.Corchetes.name(), isToken);
                 break;
             case '.':
                 isToken = isTheLast();
-                token = new Token(lexeme, TokensTypes.Punto.color, TokensTypes.Punto.name());
+                token.authorizeToken(TokensTypes.Punto.color, TokensTypes.Punto.name(),isToken);
                 break;
             case ',':
                 isToken = isTheLast();
-                token = new Token(lexeme, TokensTypes.Coma.color, TokensTypes.Coma.name());
+                token.authorizeToken(TokensTypes.Coma.color, TokensTypes.Coma.name(), isToken);
                 break;
         }
         return isToken;

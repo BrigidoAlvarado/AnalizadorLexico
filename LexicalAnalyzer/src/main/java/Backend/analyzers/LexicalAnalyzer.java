@@ -1,6 +1,5 @@
 package Backend.analyzers;
 
-import Backend.Automatons.*;
 import Backend.PossibleTokenSeparator;
 import Backend.Token;
 import Frontend.Pixel;
@@ -13,7 +12,7 @@ public class LexicalAnalyzer {
 
     private static ArrayList<Token> specialTokens = new ArrayList<>();
 
-    private ArrayList<String> possibleTokens = new ArrayList<>();
+    private ArrayList<Token> possibleTokens = new ArrayList<>();
     private ArrayList<Token> squareColorWithAddress = new ArrayList<>();
     private ArrayList<Token> tokens = new ArrayList<>();
     private Pixel[][] canvas;
@@ -22,7 +21,7 @@ public class LexicalAnalyzer {
         specialTokens = new ArrayList<>();
         this.canvas = canvas;
         possibleTokens = tokenSeparator.getPossibleTokens(input);
-        addTokensToArrayList();
+        addValidTokens();
         paintCanvas();
         //se pintan los tokens especiales
          System.out.println("iniciando pintar pixeles expeciales");
@@ -34,6 +33,8 @@ public class LexicalAnalyzer {
             for (int column = 0; column < canvas[row].length; column++) {
                 if (canvas[row][column].hasToken()) {
                    System.out.println(canvas[row][column].getToken().getLexeme());
+                    System.out.println("linea : "+canvas[row][column].getToken().getEditorRow());
+                     System.out.println("columna : "+canvas[row][column].getToken().getEditorColumn());
                 }
             }
         }
@@ -57,7 +58,7 @@ public class LexicalAnalyzer {
     private void paintSpecialsTokens() {
         for (Token token : specialTokens) {
             try {
-                int row = token.getRow(), column = token.getColumn();
+                int row = token.getPixelRow(), column = token.getPixelColumn();
                 canvas[row][column].setToken(token,row,column);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("error de token special");
@@ -68,18 +69,17 @@ public class LexicalAnalyzer {
         }
     }
 
-    private void addTokensToArrayList() {
-        for (String possibleToken : possibleTokens) {
-            Token token = getToken(possibleToken);
-            if (token != null) {
-                tokens.add(token);
+    private void addValidTokens() {
+        for (Token possibleToken : possibleTokens) {
+            if (validateToken(possibleToken)) {
+                tokens.add(possibleToken);
             }
         }
     }
 
-    private Token getToken(String input) {
+    private boolean validateToken(Token input) {
         TokenAnalyzer analyzer = new TokenAnalyzer();
-        return analyzer.analyzeTokens(0, 0, input);
+        return analyzer.analyzeTokens(input);
     }
 
     public static void addSpecialToken(Token specialToken) {

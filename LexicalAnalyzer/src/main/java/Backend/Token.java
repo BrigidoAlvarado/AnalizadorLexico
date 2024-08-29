@@ -1,41 +1,56 @@
 package Backend;
 
 public class Token {
-    private int column;
-    private int row;
+    private int pixelColumn;
+    private int pixelRow;
+    private int editorColumn;
+    private int editorRow;
     private String lexeme;
     private String kind;
     private String color;
+    private boolean isToken = false;
+    
+    public Token ( int editorRow, int editorColumn, String lexeme){
+        this.editorColumn = editorColumn;
+        this.editorRow = editorRow;
+        this.lexeme = lexeme;
+    }
 
-    public Token (String lexeme, String color, String kind, int row, int column) {
+    public Token (String lexeme, String color, String name, int pixelRow, int pixelColumn){
         this.lexeme = lexeme;
         this.color = color;
-        this.kind = kind;
-        this.row = row;
-        this.column = column;
-        System.out.println("se  creo la clase con "+this.row+" "+column);
+        this.pixelRow = pixelRow;
+        this.pixelColumn = pixelColumn;
     }
 
-    public Token (String lexeme, String color, String kind) {
-        this.lexeme = lexeme;
+    public void authorizeToken  (String color, String kind, boolean isToken){
+        this.isToken = isToken;
         this.color = color;
         this.kind = kind;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setPixelColumn(int column) {
+        this.pixelColumn = column;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setPixelRow(int row) {
+        this.pixelRow = row;
+    }
+    
+    public int getPixelColumn() {
+        return pixelColumn;
     }
 
-    public int getColumn() {
-        return column;
+    public int getPixelRow() {
+        return pixelRow;
+    }
+    
+     public int getEditorColumn() {
+        return editorColumn;
     }
 
-    public int getRow() {
-        return row;
+    public int getEditorRow() {
+        return editorRow;
     }
 
     public String getLexeme() {
@@ -48,5 +63,9 @@ public class Token {
 
     public String getColor() {
         return color;
+    }
+
+    public boolean isToken() {
+        return isToken;
     }
 }

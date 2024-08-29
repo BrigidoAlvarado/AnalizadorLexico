@@ -12,9 +12,9 @@ public class Logical extends Automaton {
     private static final char [] NOT = {'N','o','t'};
 
     @Override
-    public boolean isToken(String string) {
-
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
         try {
             switch (chars[0]) {
@@ -44,7 +44,7 @@ public class Logical extends Automaton {
         for (char c : AND){
             if ( isTheLast() && c == chars[current]) {
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.y.color, TokensTypes.y.name());
+                token.authorizeToken(TokensTypes.y.color, TokensTypes.y.name(), isToken);
                 break;
             } else  if (c == chars[current]) {
                 current++;
@@ -60,7 +60,7 @@ public class Logical extends Automaton {
         for (char c : OR){
             if ( isTheLast() && c == chars[current]) {
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.o.color, TokensTypes.o.name());
+                token.authorizeToken(TokensTypes.o.color, TokensTypes.o.name(), isToken);
                 break;
             } else  if (c == chars[current]) {
                 current++;
@@ -76,7 +76,7 @@ public class Logical extends Automaton {
         for (char c : NOT){
             if ( isTheLast() && c == chars[current]) {
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.negacion.color, TokensTypes.negacion.name());
+                token.authorizeToken(TokensTypes.negacion.color, TokensTypes.negacion.name(), isToken);
                 break;
             } else  if (c == chars[current]) {
                 current++;

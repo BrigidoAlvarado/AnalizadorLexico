@@ -9,21 +9,22 @@ public class DataTypes extends Automaton{
     private static final char [] FALSE = {'l','s','e'};
 
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars =lexeme.toCharArray();
 
         try {
             if (isNumber(chars[current])){
-                token = new Token(lexeme, TokensTypes.Entero.color, TokensTypes.Entero.name());
                 isToken = true;
+                token.authorizeToken(TokensTypes.Entero.color, TokensTypes.Entero.name(),isToken);
                 numberWithoutDot();
             } else if (chars[current] == '"'){
                 startWithQuotationMarks();
             } else if (chars[current] == '\''){
                 if (isTheLast()){
                     isToken = true;
-                    token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
+                    token.authorizeToken(TokensTypes.Comentario.color, TokensTypes.Comentario.name(), isToken);
                 } else{
                     starWithQuote();
                 }
@@ -58,7 +59,7 @@ public class DataTypes extends Automaton{
         if (current <= (chars.length - 1)){
             if (isNumber(chars[current])){
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.Decimal.color, TokensTypes.Decimal.name());
+                token.authorizeToken(TokensTypes.Decimal.color, TokensTypes.Decimal.name(), isToken);
                 numberWithDot();
             } else {
                 isToken = false;
@@ -83,7 +84,7 @@ public class DataTypes extends Automaton{
             } else if (chars[current] == '"' &&  isTheLast()){
                 // si le sigue una comilla y esta es el ultimo caracter entonces es una cadena
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.Cadena.color, TokensTypes.Cadena.name());
+                token.authorizeToken(TokensTypes.Cadena.color, TokensTypes.Cadena.name(), isToken);
             }
         }
     }
@@ -94,14 +95,14 @@ public class DataTypes extends Automaton{
             if (chars[current] == '\'' &&  isTheLast()){
                 // si le sigue una comilla simple y esta es el ultimo caracter entonces es un caracter
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.Caracter.color, TokensTypes.Caracter.name());
+                token.authorizeToken(TokensTypes.Caracter.color, TokensTypes.Caracter.name(), isToken);
             } else {
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
+                token.authorizeToken(TokensTypes.Comentario.color, TokensTypes.Comentario.name(), isToken);
             }
         } else {
             isToken = true;
-            token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
+            token.authorizeToken(TokensTypes.Comentario.color, TokensTypes.Comentario.name(), isToken);
         }
     }
 
@@ -112,7 +113,7 @@ public class DataTypes extends Automaton{
                 charContent();
             } else {
                 isToken = true;
-                token = new Token(lexeme, TokensTypes.Comentario.color, TokensTypes.Comentario.name());
+                token.authorizeToken(TokensTypes.Comentario.color, TokensTypes.Comentario.name(), isToken);
             }
         }
     }
@@ -123,13 +124,13 @@ public class DataTypes extends Automaton{
             case 'r':
                 if (isAReservedFinalWord(TRUE)){
                     isToken = true;
-                    token = new Token(lexeme, TokensTypes.Booleano.color, TokensTypes.Booleano.name());
+                    token.authorizeToken(TokensTypes.Booleano.color, TokensTypes.Booleano.name(), isToken);
                 }
                 break;
             case 'a':
                 if (isAReservedFinalWord(FALSE)){
                     isToken = true;
-                    token = new Token(lexeme, TokensTypes.Booleano.color, TokensTypes.Booleano.name());
+                    token.authorizeToken(TokensTypes.Booleano.color, TokensTypes.Booleano.name(),isToken);
                 }
                 break;
         }

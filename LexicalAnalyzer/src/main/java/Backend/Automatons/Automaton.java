@@ -12,11 +12,11 @@ public abstract class Automaton {
   protected boolean isToken = false;
   protected int current = 0;
 
-  public abstract boolean isToken(String string);
+  public abstract boolean  validateToken(Token token);
 
-    public Token getToken() {
+    /*public Token getToken() {
         return token;
-    }
+    }*/
 
     public static boolean isLetterOrCapitalLetter(char symbol) {
         boolean flag = false;

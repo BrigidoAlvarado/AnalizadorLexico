@@ -13,8 +13,9 @@ public class SquareColor extends Automaton{
     private int column;
 
     @Override
-    public boolean isToken(String string) {
-        lexeme = string;
+    public boolean validateToken(Token token) {
+        this.token = token;
+        lexeme = token.getLexeme();
         chars = lexeme.toCharArray();
         try {
             if (chars[current] == 'S'){
@@ -76,7 +77,7 @@ public class SquareColor extends Automaton{
             firsComma();
         } else if (chars[current] == ')' && isTheLast()){
             isToken = true;
-            token = new Token(lexeme, color, NAME);
+            token.authorizeToken(color, NAME, isToken);
         }
     }
 
@@ -108,7 +109,7 @@ public class SquareColor extends Automaton{
         current++;
         if (chars[current] == ')' && isTheLast()){
             isToken = false;
-            token = new Token(lexeme, color, NAME,row,column);
+            token = new Token(lexeme, color, NAME, row, column);
             System.out.println("se guardo el token especial "+token.getLexeme());
             System.out.println("fila: "+row+" columna: "+column);
             LexicalAnalyzer.addSpecialToken(token);
