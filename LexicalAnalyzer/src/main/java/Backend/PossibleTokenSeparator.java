@@ -1,6 +1,7 @@
 package Backend;
 
 import Backend.Automatons.Automaton;
+import Frontend.AnalyzerApp;
 import java.util.ArrayList;
 
 public class PossibleTokenSeparator {
@@ -15,8 +16,10 @@ public class PossibleTokenSeparator {
     private int line = 1;
     private int column = 0;
     private String possibleToken;
-
-    public ArrayList<Token> getPossibleTokens(String imput) {
+    private AnalyzerApp app;
+    
+    public ArrayList<Token> getPossibleTokens(String imput, AnalyzerApp app) {
+        this.app = app;
         chars = imput.toCharArray();
         stateCero();
         return possibleTokens;
@@ -112,7 +115,7 @@ public class PossibleTokenSeparator {
 
     private void savePossibletoken() {
         if (possibleToken != null) {
-            possibleTokens.add(new Token(line, column, possibleToken));
+            possibleTokens.add(new Token(line, column, possibleToken, app));
             possibleToken = null;
         }
     }

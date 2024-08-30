@@ -14,6 +14,7 @@ import javax.swing.text.BadLocationException;
  * @author brigidoalvarado
  */
 public class AnalyzerApp extends javax.swing.JFrame {
+    
     private  LexicalAnalyzer lexicalAnalyzer;
     private Pixel[][] canvas;
 
@@ -171,7 +172,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
             String input = inputjTxtAr.getText();
             lexicalAnalyzer = new LexicalAnalyzer();
             createCanvas(row, column);
-            lexicalAnalyzer.analyze(input, canvas);
+            lexicalAnalyzer.analyze(input, canvas, this);
             updateCanvas(row, column);
             
         } catch (NumberFormatException e) {

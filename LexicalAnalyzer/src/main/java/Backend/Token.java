@@ -1,5 +1,7 @@
 package Backend;
 
+import Frontend.AnalyzerApp;
+
 public class Token {
     private int pixelColumn;
     private int pixelRow;
@@ -9,18 +11,21 @@ public class Token {
     private String kind;
     private String color;
     private boolean isToken = false;
+    private AnalyzerApp app;
     
-    public Token ( int editorRow, int editorColumn, String lexeme){
+    public Token ( int editorRow, int editorColumn, String lexeme, AnalyzerApp app){
+        this.app = app;
         this.editorColumn = editorColumn;
         this.editorRow = editorRow;
         this.lexeme = lexeme;
     }
 
-    public Token (String lexeme, String color, String name, int pixelRow, int pixelColumn){
+    public Token (String lexeme, String color, String name, String pixelRow, String pixelColumn){
+        System.out.println(pixelRow+" "+pixelColumn);
         this.lexeme = lexeme;
         this.color = color;
-        this.pixelRow = pixelRow;
-        this.pixelColumn = pixelColumn;
+        this.pixelRow = Integer.parseInt(pixelRow);
+        this.pixelColumn = Integer.parseInt(pixelColumn);
     }
 
     public void authorizeToken  (String color, String kind, boolean isToken){
@@ -67,5 +72,9 @@ public class Token {
 
     public boolean isToken() {
         return isToken;
+    }
+    
+    public AnalyzerApp getApp(){
+        return  app;
     }
 }

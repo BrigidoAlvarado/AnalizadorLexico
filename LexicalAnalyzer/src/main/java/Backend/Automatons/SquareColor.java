@@ -9,8 +9,8 @@ public class SquareColor extends Automaton{
     public static final String NAME = "Square Color";
 
     private String color = "#";
-    private int row;
-    private int column;
+    private String row;
+    private String column;
 
     @Override
     public boolean validateToken(Token token) {
@@ -83,10 +83,8 @@ public class SquareColor extends Automaton{
 
     private void firsComma(){
         current++;
-        System.out.println("en fistcomma");
-        System.out.println("leyendo el cartcter :"+chars[current]);
         if (isNumber(chars[current])){
-            row = Character.getNumericValue(chars[current]);
+            concatRow(chars[current]);
             row();
         }
     }
@@ -94,13 +92,16 @@ public class SquareColor extends Automaton{
         current++;
         if (chars[current] == ','){
             secondComma();
+        } else if (isNumber(chars[current])){
+            concatRow(chars[current]);
+            row();
         }
     }
 
     private void secondComma(){
         current++;
         if (isNumber(chars[current])){
-            column = Character.getNumericValue(chars[current]);
+            concatColumn(chars[current]);
             column();
         }
     }
@@ -110,10 +111,29 @@ public class SquareColor extends Automaton{
         if (chars[current] == ')' && isTheLast()){
             isToken = false;
             token = new Token(lexeme, color, NAME, row, column);
-            System.out.println("se guardo el token especial "+token.getLexeme());
-            System.out.println("fila: "+row+" columna: "+column);
             LexicalAnalyzer.addSpecialToken(token);
+        } else if (isNumber(chars[current])){
+            concatColumn(chars[current]);
+            column();
+        }
+    }
+
+    private void concatRow(char c){
+        if (row == null){
+            row = String.valueOf(c);
+        } else{
+            row += c;
+        }
+    }
+
+    private void concatColumn(char c){
+        if (column == null){
+            column = String.valueOf(c);
+        } else{
+            column += c;
         }
     }
 }
+
+
 

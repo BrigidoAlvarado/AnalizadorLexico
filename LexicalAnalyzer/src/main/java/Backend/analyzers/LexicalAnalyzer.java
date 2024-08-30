@@ -2,6 +2,7 @@ package Backend.analyzers;
 
 import Backend.PossibleTokenSeparator;
 import Backend.Token;
+import Frontend.AnalyzerApp;
 import Frontend.Pixel;
 
 import java.util.ArrayList;
@@ -16,11 +17,13 @@ public class LexicalAnalyzer {
     private ArrayList<Token> squareColorWithAddress = new ArrayList<>();
     private ArrayList<Token> tokens = new ArrayList<>();
     private Pixel[][] canvas;
+    private AnalyzerApp app;
 
-    public void analyze(String input, Pixel[][] canvas) {
+    public void analyze(String input, Pixel[][] canvas, AnalyzerApp app) {
+        this.app = app;
         specialTokens = new ArrayList<>();
         this.canvas = canvas;
-        possibleTokens = tokenSeparator.getPossibleTokens(input);
+        possibleTokens = tokenSeparator.getPossibleTokens(input, app);
         addValidTokens();
         paintCanvas();
         //se pintan los tokens especiales
