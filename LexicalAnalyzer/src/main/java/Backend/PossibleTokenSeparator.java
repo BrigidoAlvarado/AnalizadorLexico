@@ -13,7 +13,7 @@ public class PossibleTokenSeparator {
     private char[] chars;
     private int current = 0;
     private int line = 1;
-    private int column = 1;
+    private int column = 0;
     private String possibleToken;
 
     public ArrayList<Token> getPossibleTokens(String imput) {
@@ -24,13 +24,16 @@ public class PossibleTokenSeparator {
 
     private void stateCero() {
         if (current < (chars.length)) {
+            
             if (chars[current] == VOID || chars[current] == LINE_BREAK || chars[current] == TAB) {
                 increaseCounters();
                 voidOrBreakLine();
             } else if (chars[current] == '\'') {
+                increaseCounters();
                 stringBuider(chars[current]);
                 quotation();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 symbols();
             }
@@ -40,11 +43,13 @@ public class PossibleTokenSeparator {
     private void symbols() {
         current++;
         if (current < (chars.length)) {
+            
             if (chars[current] == VOID || chars[current] == LINE_BREAK || chars[current] == TAB) {
                 savePossibletoken();
                 increaseCounters();
                 voidOrBreakLine();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 symbols();
             }
@@ -56,14 +61,17 @@ public class PossibleTokenSeparator {
     private void voidOrBreakLine() {
         current++;
         if (current < (chars.length)) {
+        
             if (chars[current] == LINE_BREAK || chars[current] == VOID || chars[current] == TAB) {
                 savePossibletoken();
                 increaseCounters();
                 voidOrBreakLine();
             } else if (chars[current] == '\'') {
+                increaseCounters();
                 stringBuider(chars[current]);
                 quotation();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 symbols();
             }
@@ -75,14 +83,17 @@ public class PossibleTokenSeparator {
     private void quotation() {
         current++;
         if (current < (chars.length)) {
+        
             if (chars[current] == LINE_BREAK) {
-                increaseCounters();
                 savePossibletoken();
+                increaseCounters();
                 voidOrBreakLine();
             } else if (Automaton.isLetterOrCapitalLetter(chars[current])) {
+                increaseCounters();
                 stringBuider(chars[current]);
                 caracter();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 quotation();
             }
@@ -109,13 +120,15 @@ public class PossibleTokenSeparator {
     private void caracter() {
         current++;
         if (current < chars.length) {
+        
             if (chars[current] == '\'') {
+                increaseCounters();
                 stringBuider(chars[current]);
                 endQuotation();
             } else if (chars[current] == LINE_BREAK) {
                 savePossibletoken();
-                increaseCounters();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 comentContent();
             }
@@ -127,11 +140,13 @@ public class PossibleTokenSeparator {
     private void endQuotation() {
         current++;
         if (current < chars.length) {
+        
             if (chars[current] == VOID || chars[current] == LINE_BREAK) {
                 savePossibletoken();
                 increaseCounters();
                 voidOrBreakLine();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 comentContent();
             }
@@ -143,11 +158,13 @@ public class PossibleTokenSeparator {
     private void comentContent() {
         current++;
         if (current < chars.length) {
+        
             if (chars[current] == LINE_BREAK) {
                 savePossibletoken();
                 increaseCounters();
                 voidOrBreakLine();
             } else {
+                increaseCounters();
                 stringBuider(chars[current]);
                 comentContent();
             }
@@ -157,18 +174,15 @@ public class PossibleTokenSeparator {
     }
 
     private void increaseCounters() {
-        char c = chars[current];
-        switch (c) {
-            case VOID:
-                column++;
-                break;
-            case LINE_BREAK:
+        if (chars.length != 0) {
+            char c = chars[current];
+            if (c == LINE_BREAK) {
+                column = 0;
                 line++;
-                column = 1;
-                break;
-            case TAB:
+            } else {
                 column++;
-                break;
+            }
         }
+
     }
 }

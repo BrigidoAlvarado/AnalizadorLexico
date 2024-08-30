@@ -7,6 +7,7 @@ package Frontend;
 import Backend.analyzers.LexicalAnalyzer;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -35,104 +36,115 @@ public class AnalyzerApp extends javax.swing.JFrame {
         editorContainer = new javax.swing.JPanel();
         chargeFilejBttn = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        imputjTxtAr = new javax.swing.JTextArea();
-        rowNumberjTxtFld = new javax.swing.JTextField();
-        columnNumberjTxtFld = new javax.swing.JTextField();
+        inputjTxtAr = new javax.swing.JTextArea();
+        positionjLbl = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         rowNumberjLbl = new javax.swing.JLabel();
+        rowNumberjTxtFld = new javax.swing.JTextField();
         columnNumberjLbl = new javax.swing.JLabel();
-        printjBttn = new javax.swing.JButton();
+        columnNumberjTxtFld = new javax.swing.JTextField();
         containerCanvasjPnl = new javax.swing.JPanel();
         jMnBr = new javax.swing.JMenuBar();
         ReportjMn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        editorContainer.setBackground(new java.awt.Color(102, 102, 102));
-        editorContainer.setForeground(new java.awt.Color(102, 102, 102));
+        editorContainer.setBackground(new java.awt.Color(204, 204, 255));
+        editorContainer.setForeground(new java.awt.Color(204, 204, 255));
 
-        chargeFilejBttn.setText("Cargar Archivo");
+        chargeFilejBttn.setText("Importar Archivo Fuente");
+        chargeFilejBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargeFilejBttnActionPerformed(evt);
+            }
+        });
 
-        imputjTxtAr.setColumns(20);
-        imputjTxtAr.setRows(5);
-        jScrollPane.setViewportView(imputjTxtAr);
+        inputjTxtAr.setColumns(20);
+        inputjTxtAr.setRows(5);
+        inputjTxtAr.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                inputjTxtArCaretUpdate(evt);
+            }
+        });
+        jScrollPane.setViewportView(inputjTxtAr);
+
+        positionjLbl.setText("linea :1 columna: 1");
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Tamaño del Lienzo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(0, 0, 0)))); // NOI18N
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
         rowNumberjLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rowNumberjLbl.setText("Filas");
+        jPanel1.add(rowNumberjLbl);
+
+        rowNumberjTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rowNumberjTxtFldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rowNumberjTxtFld);
 
         columnNumberjLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         columnNumberjLbl.setText("Columnas");
+        jPanel1.add(columnNumberjLbl);
 
-        printjBttn.setText("PINTAR");
-        printjBttn.addActionListener(new java.awt.event.ActionListener() {
+        columnNumberjTxtFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printjBttnActionPerformed(evt);
+                columnNumberjTxtFldActionPerformed(evt);
             }
         });
+        jPanel1.add(columnNumberjTxtFld);
 
         javax.swing.GroupLayout editorContainerLayout = new javax.swing.GroupLayout(editorContainer);
         editorContainer.setLayout(editorContainerLayout);
         editorContainerLayout.setHorizontalGroup(
             editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editorContainerLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(positionjLbl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editorContainerLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane)
                     .addGroup(editorContainerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(editorContainerLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(editorContainerLayout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(editorContainerLayout.createSequentialGroup()
-                                    .addComponent(rowNumberjLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(columnNumberjLbl))
-                                .addGroup(editorContainerLayout.createSequentialGroup()
-                                    .addComponent(rowNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(columnNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(18, 18, 18)
-                            .addComponent(printjBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 21, Short.MAX_VALUE))
+                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
         editorContainerLayout.setVerticalGroup(
             editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editorContainerLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(chargeFilejBttn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(editorContainerLayout.createSequentialGroup()
-                        .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rowNumberjLbl)
-                            .addComponent(columnNumberjLbl))
-                        .addGap(3, 3, 3)
-                        .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(rowNumberjTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
-                            .addComponent(columnNumberjTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addComponent(printjBttn))
-                .addGap(15, 15, 15))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chargeFilejBttn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(positionjLbl)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        getContentPane().add(editorContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(editorContainer);
+
+        containerCanvasjPnl.setPreferredSize(new java.awt.Dimension(480, 480));
 
         javax.swing.GroupLayout containerCanvasjPnlLayout = new javax.swing.GroupLayout(containerCanvasjPnl);
         containerCanvasjPnl.setLayout(containerCanvasjPnlLayout);
         containerCanvasjPnlLayout.setHorizontalGroup(
             containerCanvasjPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
         containerCanvasjPnlLayout.setVerticalGroup(
             containerCanvasjPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
 
-        getContentPane().add(containerCanvasjPnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 0, -1, 480));
+        getContentPane().add(containerCanvasjPnl);
 
         ReportjMn.setText("Reportes");
         jMnBr.add(ReportjMn);
@@ -142,13 +154,21 @@ public class AnalyzerApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void printjBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printjBttnActionPerformed
+    private void rowNumberjTxtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rowNumberjTxtFldActionPerformed
         // TODO add your handling code here:
-        try {
+    }//GEN-LAST:event_rowNumberjTxtFldActionPerformed
+
+    private void columnNumberjTxtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_columnNumberjTxtFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_columnNumberjTxtFldActionPerformed
+
+    private void inputjTxtArCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_inputjTxtArCaretUpdate
+        // TODO add your handling code here:
+         try {
             int row = Integer.parseInt(rowNumberjTxtFld.getText());
             int column = Integer.parseInt(columnNumberjTxtFld.getText());
-            String input = imputjTxtAr.getText();
-            System.out.println(input);
+            updateCaretPosition();
+            String input = inputjTxtAr.getText();
             lexicalAnalyzer = new LexicalAnalyzer();
             createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas);
@@ -157,7 +177,12 @@ public class AnalyzerApp extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_printjBttnActionPerformed
+       
+    }//GEN-LAST:event_inputjTxtArCaretUpdate
+
+    private void chargeFilejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeFilejBttnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chargeFilejBttnActionPerformed
 
     private void createCanvas(int row, int column){
         canvas = new Pixel[row][column];
@@ -167,6 +192,18 @@ public class AnalyzerApp extends javax.swing.JFrame {
                 }
             }
     }
+    
+    private void updateCaretPosition(){
+        try {
+            int caretPos = inputjTxtAr.getCaretPosition(); // Obtiene la posición del cursor
+            int line = inputjTxtAr.getLineOfOffset(caretPos); // Calcula la línea actual (fila)
+            int column = caretPos - inputjTxtAr.getLineStartOffset(line); // Calcula la columna actual
+            positionjLbl.setText("Fila: " + (line + 1) + ", Columna: " + (column + 1));
+        } catch (BadLocationException ex) {
+            JOptionPane.showMessageDialog(this, "error al actualizar la linea y columna ", "ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     
     private void updateCanvas(int rows, int columns){
         containerCanvasjPnl.removeAll();
@@ -190,10 +227,11 @@ public class AnalyzerApp extends javax.swing.JFrame {
     private javax.swing.JTextField columnNumberjTxtFld;
     private javax.swing.JPanel containerCanvasjPnl;
     private javax.swing.JPanel editorContainer;
-    private javax.swing.JTextArea imputjTxtAr;
+    private javax.swing.JTextArea inputjTxtAr;
     private javax.swing.JMenuBar jMnBr;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JButton printjBttn;
+    private javax.swing.JLabel positionjLbl;
     private javax.swing.JLabel rowNumberjLbl;
     private javax.swing.JTextField rowNumberjTxtFld;
     // End of variables declaration//GEN-END:variables
