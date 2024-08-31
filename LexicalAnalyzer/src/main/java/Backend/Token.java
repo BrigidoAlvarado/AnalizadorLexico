@@ -20,12 +20,14 @@ public class Token {
         this.lexeme = lexeme;
     }
 
-    public Token (String lexeme, String color, String name, String pixelRow, String pixelColumn){
+    public Token (String lexeme, String color, String name, String pixelRow, String pixelColumn, int editorRow, int editorColumn){
         System.out.println(pixelRow+" "+pixelColumn);
         this.lexeme = lexeme;
         this.color = color;
         this.pixelRow = Integer.parseInt(pixelRow);
         this.pixelColumn = Integer.parseInt(pixelColumn);
+        this.editorRow = editorRow;
+        this.editorColumn = editorColumn;
     }
 
     public void authorizeToken  (String color, String kind, boolean isToken){

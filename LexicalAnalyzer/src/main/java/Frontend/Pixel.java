@@ -5,7 +5,6 @@
 package Frontend;
 
 import Backend.Token;
-import guru.nidi.graphviz.attribute.Attributes;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
@@ -31,9 +30,9 @@ public class Pixel extends javax.swing.JButton {
 
     private void showAutomatonActionPerformed(java.awt.event.ActionEvent evt) {
         String conten
-                = "Linea : " + String.valueOf(token.getEditorRow())
-                + " Columna: " + String.valueOf(token.getEditorColumn())
-                + " --> Cuadro[" + String.valueOf(token.getPixelRow()) + "," + String.valueOf(token.getPixelColumn()) + "]";
+                = "Linea:  " + String.valueOf(token.getEditorRow())
+                + " Columna:  " + String.valueOf(token.getEditorColumn())
+                + "  --> Cuadro [ " + String.valueOf(token.getPixelRow()) + ", " + String.valueOf(token.getPixelColumn()) + " ]";
         createGraph();
         File file = saveImg();
         ImageIcon icon = new ImageIcon(file.getPath());

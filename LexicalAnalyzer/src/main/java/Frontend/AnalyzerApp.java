@@ -4,8 +4,10 @@
  */
 package Frontend;
 
+import Backend.Token;
 import Backend.analyzers.LexicalAnalyzer;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 
@@ -14,8 +16,9 @@ import javax.swing.text.BadLocationException;
  * @author brigidoalvarado
  */
 public class AnalyzerApp extends javax.swing.JFrame {
-    
-    private  LexicalAnalyzer lexicalAnalyzer;
+
+    private  ArrayList<Token> tokensReports = new ArrayList<>();
+    private LexicalAnalyzer lexicalAnalyzer;
     private Pixel[][] canvas;
 
     /**
@@ -36,7 +39,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
 
         editorContainer = new javax.swing.JPanel();
         chargeFilejBttn = new javax.swing.JButton();
-        jScrollPane = new javax.swing.JScrollPane();
+        inputjScrllPn = new javax.swing.JScrollPane();
         inputjTxtAr = new javax.swing.JTextArea();
         positionjLbl = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -46,7 +49,10 @@ public class AnalyzerApp extends javax.swing.JFrame {
         columnNumberjTxtFld = new javax.swing.JTextField();
         containerCanvasjPnl = new javax.swing.JPanel();
         jMnBr = new javax.swing.JMenuBar();
-        ReportjMn = new javax.swing.JMenu();
+        OptionsjMn = new javax.swing.JMenu();
+        reportsjMnItm = new javax.swing.JMenuItem();
+        optionsjSprtr = new javax.swing.JPopupMenu.Separator();
+        exportImgjMnItm = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -68,7 +74,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
                 inputjTxtArCaretUpdate(evt);
             }
         });
-        jScrollPane.setViewportView(inputjTxtAr);
+        inputjScrllPn.setViewportView(inputjTxtAr);
 
         positionjLbl.setText("linea :1 columna: 1");
 
@@ -88,7 +94,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
         jPanel1.add(rowNumberjTxtFld);
 
         columnNumberjLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        columnNumberjLbl.setText("Columnas");
+        columnNumberjLbl.setText("Columnas ");
         jPanel1.add(columnNumberjLbl);
 
         columnNumberjTxtFld.addActionListener(new java.awt.event.ActionListener() {
@@ -109,22 +115,27 @@ public class AnalyzerApp extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editorContainerLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane)
+                    .addComponent(inputjScrllPn)
                     .addGroup(editorContainerLayout.createSequentialGroup()
-                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(6, 6, 6)
+                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
         editorContainerLayout.setVerticalGroup(
             editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editorContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chargeFilejBttn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editorContainerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editorContainerLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(chargeFilejBttn)
+                        .addGap(18, 18, 18)))
+                .addComponent(inputjScrllPn, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(positionjLbl)
                 .addContainerGap(11, Short.MAX_VALUE))
@@ -147,8 +158,21 @@ public class AnalyzerApp extends javax.swing.JFrame {
 
         getContentPane().add(containerCanvasjPnl);
 
-        ReportjMn.setText("Reportes");
-        jMnBr.add(ReportjMn);
+        OptionsjMn.setText("Opciones");
+
+        reportsjMnItm.setText("Mostrar Reportes");
+        reportsjMnItm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsjMnItmActionPerformed(evt);
+            }
+        });
+        OptionsjMn.add(reportsjMnItm);
+        OptionsjMn.add(optionsjSprtr);
+
+        exportImgjMnItm.setText("Exportar Lienzo");
+        OptionsjMn.add(exportImgjMnItm);
+
+        jMnBr.add(OptionsjMn);
 
         setJMenuBar(jMnBr);
 
@@ -165,7 +189,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
 
     private void inputjTxtArCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_inputjTxtArCaretUpdate
         // TODO add your handling code here:
-         try {
+        try {
             int row = Integer.parseInt(rowNumberjTxtFld.getText());
             int column = Integer.parseInt(columnNumberjTxtFld.getText());
             updateCaretPosition();
@@ -174,41 +198,49 @@ public class AnalyzerApp extends javax.swing.JFrame {
             createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas, this);
             updateCanvas(row, column);
-            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch(RuntimeException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "SIN CASILLAS DISPONIBLES",JOptionPane.INFORMATION_MESSAGE);
         }
-       
+
     }//GEN-LAST:event_inputjTxtArCaretUpdate
 
     private void chargeFilejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeFilejBttnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chargeFilejBttnActionPerformed
 
-    private void createCanvas(int row, int column){
+    private void reportsjMnItmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsjMnItmActionPerformed
+        // TODO add your handling code here:
+        updateTokensReports(canvas);
+        ReportsJFrm reportsJFrm = new ReportsJFrm(tokensReports);
+        reportsJFrm.setVisible(true);
+
+    }//GEN-LAST:event_reportsjMnItmActionPerformed
+
+    private void createCanvas(int row, int column) {
         canvas = new Pixel[row][column];
-            for (int i = 0; i < canvas.length; i++) {
-                for (int j = 0; j < canvas[i].length; j++) {
-                    canvas[i][j] = new Pixel();
-                }
+        for (Pixel[] canva : canvas) {
+            for (int j = 0; j < canva.length; j++) {
+                canva[j] = new Pixel();
             }
+        }
     }
-    
-    private void updateCaretPosition(){
+
+    private void updateCaretPosition() {
         try {
             int caretPos = inputjTxtAr.getCaretPosition(); // Obtiene la posición del cursor
             int line = inputjTxtAr.getLineOfOffset(caretPos); // Calcula la línea actual (fila)
             int column = caretPos - inputjTxtAr.getLineStartOffset(line); // Calcula la columna actual
             positionjLbl.setText("Fila: " + (line + 1) + ", Columna: " + (column + 1));
         } catch (BadLocationException ex) {
-            JOptionPane.showMessageDialog(this, "error al actualizar la linea y columna ", "ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error al actualizar la linea y columna ", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    
-    private void updateCanvas(int rows, int columns){
+    private void updateCanvas(int rows, int columns) {
         containerCanvasjPnl.removeAll();
-        containerCanvasjPnl.setLayout(new GridLayout(rows, rows));
+        containerCanvasjPnl.setLayout(new GridLayout(rows, columns));
         for (Pixel[] canva : canvas) {
             for (Pixel pixel : canva) {
                 containerCanvasjPnl.add(pixel);
@@ -220,19 +252,34 @@ public class AnalyzerApp extends javax.swing.JFrame {
         this.repaint();
         this.revalidate();
     }
-    
+
+    public  void updateTokensReports(Pixel[][] canvas) {
+
+        tokensReports = new ArrayList<>();
+        for (Pixel[] canva : canvas) {
+            for (Pixel pixel : canva) {
+                if (pixel.hasToken()) {
+                    tokensReports.add(pixel.getToken());
+                }
+            }
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu ReportjMn;
+    private javax.swing.JMenu OptionsjMn;
     private javax.swing.JButton chargeFilejBttn;
     private javax.swing.JLabel columnNumberjLbl;
     private javax.swing.JTextField columnNumberjTxtFld;
     private javax.swing.JPanel containerCanvasjPnl;
     private javax.swing.JPanel editorContainer;
+    private javax.swing.JMenuItem exportImgjMnItm;
+    private javax.swing.JScrollPane inputjScrllPn;
     private javax.swing.JTextArea inputjTxtAr;
     private javax.swing.JMenuBar jMnBr;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JPopupMenu.Separator optionsjSprtr;
     private javax.swing.JLabel positionjLbl;
+    private javax.swing.JMenuItem reportsjMnItm;
     private javax.swing.JLabel rowNumberjLbl;
     private javax.swing.JTextField rowNumberjTxtFld;
     // End of variables declaration//GEN-END:variables

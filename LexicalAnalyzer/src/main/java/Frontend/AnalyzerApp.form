@@ -4,10 +4,27 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMnBr">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="ReportjMn">
+        <Menu class="javax.swing.JMenu" name="OptionsjMn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reportes"/>
+            <Property name="text" type="java.lang.String" value="Opciones"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="reportsjMnItm">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mostrar Reportes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reportsjMnItmActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="optionsjSprtr">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportImgjMnItm">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exportar Lienzo"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -59,10 +76,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane" max="32767" attributes="0"/>
+                      <Component id="inputjScrllPn" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="chargeFilejBttn" pref="287" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="chargeFilejBttn" pref="275" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -73,13 +91,19 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="chargeFilejBttn" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="chargeFilejBttn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jScrollPane" min="-2" pref="417" max="-2" attributes="0"/>
+                  <Component id="inputjScrllPn" min="-2" pref="417" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="positionjLbl" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="11" max="32767" attributes="0"/>
@@ -96,7 +120,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chargeFilejBttnActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane">
+        <Container class="javax.swing.JScrollPane" name="inputjScrllPn">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -159,7 +183,7 @@
             <Component class="javax.swing.JLabel" name="columnNumberjLbl">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Columnas"/>
+                <Property name="text" type="java.lang.String" value="Columnas "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="columnNumberjTxtFld">
