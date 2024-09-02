@@ -239,12 +239,10 @@ public class AnalyzerApp extends javax.swing.JFrame {
             createCanvas();
             inputjTxtAr.setText(fileContent);
         } catch (NullPointerException | IOException e) {
-            inputjTxtAr.setText(null);
-            containerCanvasjPnl.removeAll();
+           cleanCanvas();
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            inputjTxtAr.setText(null);
-            containerCanvasjPnl.removeAll();
+            cleanCanvas();
         }
     }//GEN-LAST:event_chargeFilejBttnActionPerformed
 
@@ -312,9 +310,15 @@ public class AnalyzerApp extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,"error al crear el archivo", "ERROR",JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e){
-            System.out.println("en null pointer exception");
+            JOptionPane.showMessageDialog(this, "Exportar cancelado","", JOptionPane.INFORMATION_MESSAGE);
         }
-
+    }
+    
+    private void cleanCanvas(){
+        inputjTxtAr.setText(null);
+        containerCanvasjPnl.removeAll();
+        containerCanvasjPnl.revalidate();
+        containerCanvasjPnl.repaint();
     }
 
     private void updateCaretPosition() {
