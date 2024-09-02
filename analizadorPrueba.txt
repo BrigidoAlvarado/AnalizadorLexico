@@ -2,7 +2,7 @@ hola mundo 1 2 3
 If Else 
 = -= / [ , . 
 xddd * 'd' 'comentario
-Square.Color(#000000)
+Magadale Pec
 Square.Color(#000000,15,150)
 Square.Color(#000000,3,3)
 Square.Color(#000000)

@@ -6,11 +6,16 @@ package Frontend;
 
 import Backend.Token;
 import Backend.analyzers.LexicalAnalyzer;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
@@ -190,6 +195,11 @@ public class AnalyzerApp extends javax.swing.JFrame {
         OptionsjMn.add(optionsjSprtr);
 
         exportImgjMnItm.setText("Exportar Lienzo");
+        exportImgjMnItm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportImgjMnItmActionPerformed(evt);
+            }
+        });
         OptionsjMn.add(exportImgjMnItm);
 
         jMnBr.add(OptionsjMn);
@@ -225,14 +235,14 @@ public class AnalyzerApp extends javax.swing.JFrame {
     private void chargeFilejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeFilejBttnActionPerformed
         // TODO add your handling code here:
         try {
-            String fileContent = new String(Files.readAllBytes(Paths.get(readFile())));
+            String fileContent = new String(Files.readAllBytes(Paths.get(readFile(false))));
             createCanvas();
             inputjTxtAr.setText(fileContent);
-        } catch(NullPointerException | IOException e){
+        } catch (NullPointerException | IOException e) {
             inputjTxtAr.setText(null);
             containerCanvasjPnl.removeAll();
-        }catch ( RuntimeException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             inputjTxtAr.setText(null);
             containerCanvasjPnl.removeAll();
         }
@@ -256,6 +266,11 @@ public class AnalyzerApp extends javax.swing.JFrame {
         this.revalidate();
     }//GEN-LAST:event_deletejBttnActionPerformed
 
+    private void exportImgjMnItmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportImgjMnItmActionPerformed
+        // TODO add your handling code here:
+        createImg();
+    }//GEN-LAST:event_exportImgjMnItmActionPerformed
+
     private void createCanvas() {
         try {
             int row = Integer.parseInt(rowNumberjTxtFld.getText());
@@ -268,6 +283,36 @@ public class AnalyzerApp extends javax.swing.JFrame {
             }
         } catch (NumberFormatException e) {
             throw new RuntimeException("El numero ingresado en la fila o columna es un valor invalido");
+        }
+    }
+
+    private void createImg() {
+        try {
+            String path = readFile(true) + File.separatorChar + "Mi_Lienzo"+LocalDateTime.now()+".png";
+            int width = canvas[0].length;  // Número de columnas
+            int height = canvas.length;
+            int buttonWidth = canvas[0][0].getWidth(); // Ancho de cada "botón" en la imagen
+            int buttonHeight = canvas[0][0].getHeight(); // Altura de cada "botón" en la imagen// Número de filas
+
+            BufferedImage image = new BufferedImage(width * buttonWidth, height * buttonHeight, BufferedImage.TYPE_INT_RGB);
+            
+            for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                Color color = canvas[row][col].getBackground(); // Obtener el color de fondo del botón
+                for (int y = 0; y < buttonHeight; y++) {
+                    for (int x = 0; x < buttonWidth; x++) {
+                        image.setRGB(col * buttonWidth + x, row * buttonHeight + y, color.getRGB());
+                    }
+                }
+            }
+        }
+            
+            ImageIO.write(image, "png", new File(path));
+            JOptionPane.showMessageDialog(this, "Imagen guardada en: "+ path, "Imagen guardada exitosamente",JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this,"error al crear el archivo", "ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e){
+            System.out.println("en null pointer exception");
         }
 
     }
@@ -310,13 +355,16 @@ public class AnalyzerApp extends javax.swing.JFrame {
         }
     }
 
-    private String readFile() {
+    private String readFile(boolean directoriesOnly) {
         JFileChooser fileChooser = new JFileChooser();
+        if (directoriesOnly) {
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        }
         int selection = fileChooser.showOpenDialog(this);
         if (selection == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         } else {
-            return null;
+            throw new NullPointerException();
         }
     }
 
