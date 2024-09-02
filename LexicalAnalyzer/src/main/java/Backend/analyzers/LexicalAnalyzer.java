@@ -6,6 +6,7 @@ import Frontend.AnalyzerApp;
 import Frontend.Pixel;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class LexicalAnalyzer {
 
@@ -42,21 +43,18 @@ public class LexicalAnalyzer {
     }
 
     private void paintCanvas() {
-        if ( tokens.size()  > (canvas.length * canvas[0].length)) {
-            throw new RuntimeException("Ya no tienes mas pixeles disponibles en tu lienzo");
-        } else {
-            int counter = 0;
-            for (int row = 0; row < canvas.length; row++) {
-                for (int column = 0; column < canvas[row].length; column++) {
-                    try {
-                        canvas[row][column].setToken(tokens.get(counter), row, column);
-                        counter++;
-                    } catch (IndexOutOfBoundsException e) {
-                        break;
-                    }
+        int counter = 0;
+        for (int row = 0; row < canvas.length; row++) {
+            for (int column = 0; column < canvas[row].length; column++) {
+                try {
+                    canvas[row][column].setToken(tokens.get(counter), row, column);
+                    counter++;
+                } catch (IndexOutOfBoundsException e) {
+                    break;
                 }
             }
         }
+
     }
 
     private void paintSpecialsTokens() {
@@ -65,7 +63,7 @@ public class LexicalAnalyzer {
                 int row = token.getPixelRow(), column = token.getPixelColumn();
                 canvas[row][column].setToken(token, row, column);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("error de token special");
+                JOptionPane.showMessageDialog(app, "La posicion asignada al token especial: "+ token.getLexeme() +"\n es mayor al tamaño del lienzo", "Token especial linea: "+token.getEditorRow()+" Columna: "+token.getEditorColumn(), JOptionPane.INFORMATION_MESSAGE);
                 break;
             }
         }

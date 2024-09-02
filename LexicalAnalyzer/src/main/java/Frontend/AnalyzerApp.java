@@ -7,7 +7,11 @@ package Frontend;
 import Backend.Token;
 import Backend.analyzers.LexicalAnalyzer;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 
@@ -17,7 +21,7 @@ import javax.swing.text.BadLocationException;
  */
 public class AnalyzerApp extends javax.swing.JFrame {
 
-    private  ArrayList<Token> tokensReports = new ArrayList<>();
+    private ArrayList<Token> tokensReports = new ArrayList<>();
     private LexicalAnalyzer lexicalAnalyzer;
     private Pixel[][] canvas;
 
@@ -47,6 +51,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
         rowNumberjTxtFld = new javax.swing.JTextField();
         columnNumberjLbl = new javax.swing.JLabel();
         columnNumberjTxtFld = new javax.swing.JTextField();
+        deletejBttn = new javax.swing.JButton();
         containerCanvasjPnl = new javax.swing.JPanel();
         jMnBr = new javax.swing.JMenuBar();
         OptionsjMn = new javax.swing.JMenu();
@@ -104,23 +109,33 @@ public class AnalyzerApp extends javax.swing.JFrame {
         });
         jPanel1.add(columnNumberjTxtFld);
 
+        deletejBttn.setText("BORRAR");
+        deletejBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletejBttnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout editorContainerLayout = new javax.swing.GroupLayout(editorContainer);
         editorContainer.setLayout(editorContainerLayout);
         editorContainerLayout.setHorizontalGroup(
             editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editorContainerLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(positionjLbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editorContainerLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(inputjScrllPn)
                     .addGroup(editorContainerLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(chargeFilejBttn, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(29, 29, 29)
+                        .addComponent(positionjLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deletejBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editorContainerLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(inputjScrllPn)
+                            .addGroup(editorContainerLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(chargeFilejBttn, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(15, 15, 15))
         );
         editorContainerLayout.setVerticalGroup(
@@ -137,8 +152,13 @@ public class AnalyzerApp extends javax.swing.JFrame {
                         .addGap(18, 18, 18)))
                 .addComponent(inputjScrllPn, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(positionjLbl)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGroup(editorContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editorContainerLayout.createSequentialGroup()
+                        .addComponent(positionjLbl)
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editorContainerLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deletejBttn))))
         );
 
         getContentPane().add(editorContainer);
@@ -153,7 +173,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
         );
         containerCanvasjPnlLayout.setVerticalGroup(
             containerCanvasjPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+            .addGap(0, 513, Short.MAX_VALUE)
         );
 
         getContentPane().add(containerCanvasjPnl);
@@ -190,24 +210,32 @@ public class AnalyzerApp extends javax.swing.JFrame {
     private void inputjTxtArCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_inputjTxtArCaretUpdate
         // TODO add your handling code here:
         try {
-            int row = Integer.parseInt(rowNumberjTxtFld.getText());
-            int column = Integer.parseInt(columnNumberjTxtFld.getText());
+            createCanvas();
             updateCaretPosition();
             String input = inputjTxtAr.getText();
             lexicalAnalyzer = new LexicalAnalyzer();
-            createCanvas(row, column);
             lexicalAnalyzer.analyze(input, canvas, this);
-            updateCanvas(row, column);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El numero ingresado en la fila o columna es un valor invalido", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "SIN CASILLAS DISPONIBLES",JOptionPane.INFORMATION_MESSAGE);
+            updateCanvas();
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_inputjTxtArCaretUpdate
 
     private void chargeFilejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeFilejBttnActionPerformed
         // TODO add your handling code here:
+        try {
+            String fileContent = new String(Files.readAllBytes(Paths.get(readFile())));
+            createCanvas();
+            inputjTxtAr.setText(fileContent);
+        } catch(NullPointerException | IOException e){
+            inputjTxtAr.setText(null);
+            containerCanvasjPnl.removeAll();
+        }catch ( RuntimeException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+            inputjTxtAr.setText(null);
+            containerCanvasjPnl.removeAll();
+        }
     }//GEN-LAST:event_chargeFilejBttnActionPerformed
 
     private void reportsjMnItmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsjMnItmActionPerformed
@@ -218,13 +246,30 @@ public class AnalyzerApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_reportsjMnItmActionPerformed
 
-    private void createCanvas(int row, int column) {
-        canvas = new Pixel[row][column];
-        for (Pixel[] canva : canvas) {
-            for (int j = 0; j < canva.length; j++) {
-                canva[j] = new Pixel();
+    private void deletejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletejBttnActionPerformed
+        // TODO add your handling code here:
+        inputjTxtAr.setText(null);
+        containerCanvasjPnl.removeAll();
+        containerCanvasjPnl.repaint();
+        containerCanvasjPnl.revalidate();
+        this.repaint();
+        this.revalidate();
+    }//GEN-LAST:event_deletejBttnActionPerformed
+
+    private void createCanvas() {
+        try {
+            int row = Integer.parseInt(rowNumberjTxtFld.getText());
+            int column = Integer.parseInt(columnNumberjTxtFld.getText());
+            canvas = new Pixel[row][column];
+            for (Pixel[] canva : canvas) {
+                for (int j = 0; j < canva.length; j++) {
+                    canva[j] = new Pixel();
+                }
             }
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("El numero ingresado en la fila o columna es un valor invalido");
         }
+
     }
 
     private void updateCaretPosition() {
@@ -238,9 +283,9 @@ public class AnalyzerApp extends javax.swing.JFrame {
         }
     }
 
-    private void updateCanvas(int rows, int columns) {
+    private void updateCanvas() {
         containerCanvasjPnl.removeAll();
-        containerCanvasjPnl.setLayout(new GridLayout(rows, columns));
+        containerCanvasjPnl.setLayout(new GridLayout(canvas.length, canvas[0].length));
         for (Pixel[] canva : canvas) {
             for (Pixel pixel : canva) {
                 containerCanvasjPnl.add(pixel);
@@ -253,7 +298,7 @@ public class AnalyzerApp extends javax.swing.JFrame {
         this.revalidate();
     }
 
-    public  void updateTokensReports(Pixel[][] canvas) {
+    public void updateTokensReports(Pixel[][] canvas) {
 
         tokensReports = new ArrayList<>();
         for (Pixel[] canva : canvas) {
@@ -265,12 +310,23 @@ public class AnalyzerApp extends javax.swing.JFrame {
         }
     }
 
+    private String readFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        int selection = fileChooser.showOpenDialog(this);
+        if (selection == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
+        } else {
+            return null;
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu OptionsjMn;
     private javax.swing.JButton chargeFilejBttn;
     private javax.swing.JLabel columnNumberjLbl;
     private javax.swing.JTextField columnNumberjTxtFld;
     private javax.swing.JPanel containerCanvasjPnl;
+    private javax.swing.JButton deletejBttn;
     private javax.swing.JPanel editorContainer;
     private javax.swing.JMenuItem exportImgjMnItm;
     private javax.swing.JScrollPane inputjScrllPn;

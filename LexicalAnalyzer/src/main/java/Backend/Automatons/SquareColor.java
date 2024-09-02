@@ -111,7 +111,7 @@ public class SquareColor extends Automaton{
         if (chars[current] == ')' && isTheLast()){
             isToken = false;
             Token squareToken  = new Token(lexeme, color, NAME, row, column, token.getEditorRow(), token.getEditorColumn());
-            LexicalAnalyzer.addSpecialToken(token);
+            LexicalAnalyzer.addSpecialToken(squareToken);
         } else if (isNumber(chars[current])){
             concatColumn(chars[current]);
             column();

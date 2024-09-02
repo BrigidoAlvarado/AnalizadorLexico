@@ -4,7 +4,7 @@ import Backend.Token;
 
 public abstract class Automaton {
   protected static char [] capitalLetters = {'A','B','C','D','E','F','G','H','I','J','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-  protected static char [] letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','@','#','$','%','?','!'};
+  protected static char [] letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z','@','#','$','%','?','!'};
   protected static char [] numbers = {'0','1','2','3','4','5','6','7','8','9'};
   protected char [] chars;
   protected Token token;
@@ -13,10 +13,6 @@ public abstract class Automaton {
   protected int current = 0;
 
   public abstract boolean  validateToken(Token token);
-
-    /*public Token getToken() {
-        return token;
-    }*/
 
     public static boolean isLetterOrCapitalLetter(char symbol) {
         boolean flag = false;
