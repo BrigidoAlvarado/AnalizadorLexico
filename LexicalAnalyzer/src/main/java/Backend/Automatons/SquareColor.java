@@ -27,10 +27,7 @@ public class SquareColor extends Automaton{
                     }
                 }
             }
-            System.out.println(color);
         } catch (ArrayIndexOutOfBoundsException e){
-            //e.printStackTrace();
-            System.out.println("retornando false desde color");
             return false;
         }
         return isToken;

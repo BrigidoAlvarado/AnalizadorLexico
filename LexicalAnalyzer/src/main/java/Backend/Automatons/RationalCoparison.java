@@ -3,8 +3,6 @@ package Backend.Automatons;
 import Backend.Enum.TokensTypes;
 import Backend.Token;
 
-import java.lang.reflect.Array;
-
 public class RationalCoparison extends Automaton{
 
     @Override

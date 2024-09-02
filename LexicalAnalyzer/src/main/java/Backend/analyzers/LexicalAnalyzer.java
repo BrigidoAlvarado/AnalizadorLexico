@@ -28,18 +28,6 @@ public class LexicalAnalyzer {
         addValidTokens();
         paintCanvas();
         paintSpecialsTokens();
-        //los pixeles obetenidos son
-        System.out.println();
-        System.out.println("Los pixeles guardados son: ");
-        for (int row = 0; row < canvas.length; row++) {
-            for (int column = 0; column < canvas[row].length; column++) {
-                if (canvas[row][column].hasToken()) {
-                    System.out.println(canvas[row][column].getToken().getLexeme());
-                    System.out.println("linea : " + canvas[row][column].getToken().getEditorRow());
-                    System.out.println("columna : " + canvas[row][column].getToken().getEditorColumn());
-                }
-            }
-        }
     }
 
     private void paintCanvas() {

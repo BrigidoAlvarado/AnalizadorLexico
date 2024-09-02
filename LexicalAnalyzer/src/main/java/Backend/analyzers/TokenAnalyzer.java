@@ -35,6 +35,8 @@ public class TokenAnalyzer {
     public boolean analyzeTokens(Token  token) {
         if (signsAndSymbols.validateToken(token)) {
            return true;
+        } else if (reservedWords.validateToken(token)) {
+            return true;
         } else if (dataTypes.validateToken(token)) {
              return true;
         } else if (arithmeticOperator.validateToken(token)) {
@@ -45,10 +47,8 @@ public class TokenAnalyzer {
              return true;
         } else if (assignment.validateToken(token)) {
              return true;
-        } else if (reservedWords.validateToken(token)) {
-            return true;
-        } else if (identifier.validateToken(token)) {
+        }   else if (identifier.validateToken(token)) {
              return true;
-        } else return squareColor.validateToken(token);
+        }else return squareColor.validateToken(token);
     }
 }

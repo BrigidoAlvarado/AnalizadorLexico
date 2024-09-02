@@ -256,6 +256,8 @@ public class AnalyzerApp extends javax.swing.JFrame {
 
     private void deletejBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletejBttnActionPerformed
         // TODO add your handling code here:
+        rowNumberjTxtFld.setText(null);
+        columnNumberjTxtFld.setText(null);
         inputjTxtAr.setText(null);
         containerCanvasjPnl.removeAll();
         containerCanvasjPnl.repaint();

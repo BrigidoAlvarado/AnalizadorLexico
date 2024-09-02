@@ -3,8 +3,6 @@ package Backend.Automatons;
 import Backend.Enum.TokensTypes;
 import Backend.Token;
 
-import java.lang.reflect.Array;
-
 public class ReservedWords extends Automaton{
 
     public static final char []
@@ -62,7 +60,7 @@ public class ReservedWords extends Automaton{
                                 current ++;
                                 switch (chars[current]){
                                     case 't':
-                                        isToken = true;
+                                           isToken = isTheLast();
                                         break;
                                     case 'o':
                                         if (isAReservedWord(OLE_POINT)){
@@ -189,8 +187,6 @@ public class ReservedWords extends Automaton{
             token.authorizeToken(TokensTypes.Palabra_Reservada.color, TokensTypes.Palabra_Reservada.name(), isToken);
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e){
-            //e.printStackTrace();
-            System.out.println("retornanado un false desde reserved words");
             return false;
         }
     }

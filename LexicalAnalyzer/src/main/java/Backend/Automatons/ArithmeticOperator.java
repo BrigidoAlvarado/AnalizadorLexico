@@ -3,8 +3,6 @@ package Backend.Automatons;
 import Backend.Enum.TokensTypes;
 import Backend.Token;
 
-import java.lang.reflect.Array;
-
 public class ArithmeticOperator extends Automaton {
 
     @Override
@@ -70,8 +68,6 @@ public class ArithmeticOperator extends Automaton {
             }
             return isToken;
         } catch (ArrayIndexOutOfBoundsException e) {
-            //e.printStackTrace();
-            System.out.println("retornando false desde operator");
             return false;
         }
     }

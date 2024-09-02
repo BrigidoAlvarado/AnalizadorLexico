@@ -21,7 +21,6 @@ public class Token {
     }
 
     public Token (String lexeme, String color, String name, String pixelRow, String pixelColumn, int editorRow, int editorColumn){
-        System.out.println(pixelRow+" "+pixelColumn);
         this.lexeme = lexeme;
         this.color = color;
         this.pixelRow = Integer.parseInt(pixelRow);
